@@ -118,7 +118,7 @@ function App() {
               <span className="hero-title-line2">THAT LASTS</span>
             </h1>
             <a href="#experience" className="hero-cta">
-              start advanture
+              start adventure
             </a>
           </div>
           <div className="hero-controls">
@@ -159,73 +159,6 @@ function App() {
         </section>
 
         <ExperienceCategories />
-
-        <section id="process" className="process-section">
-          <div className="process-container">
-            {/* Top 4 Features */}
-            <div className="process-features">
-              <div className="process-feature">
-                <div className="process-feature-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F0A73C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-                </div>
-                <h3 className="process-feature-title">Human-Centered Design</h3>
-                <p className="process-feature-text">We create moments people feel, not just attend</p>
-              </div>
-              <div className="process-feature">
-                <div className="process-feature-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFD700" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
-                </div>
-                <h3 className="process-feature-title">White-Glove Execution</h3>
-                <p className="process-feature-text">Every detail handled with intention, care, and heart</p>
-              </div>
-              <div className="process-feature">
-                <div className="process-feature-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#87CEEB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>
-                </div>
-                <h3 className="process-feature-title">Story-Led Creativity</h3>
-                <p className="process-feature-text">Every event tells a story that resonates and inspires.</p>
-              </div>
-              <div className="process-feature">
-                <div className="process-feature-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
-                </div>
-                <h3 className="process-feature-title">People First</h3>
-                <p className="process-feature-text">Your audience experience guides every decision we make.</p>
-              </div>
-            </div>
-
-            {/* OUR PROCESS Heading */}
-            <div className="process-heading-block">
-              <h2 className="process-heading">OUR PROCESS</h2>
-              <p className="process-heading-text">Simple, clear steps from idea to unforgettable experience.</p>
-            </div>
-
-            {/* Process Steps - 3 Items */}
-            <div className="process-steps">
-              <div className="process-step">
-                <div className="process-step-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" /></svg>
-                </div>
-                <h3 className="process-step-title">Tell Us Your Goal</h3>
-                <p className="process-step-text">We listen, understand, and dream with you</p>
-              </div>
-              <div className="process-step">
-                <div className="process-step-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg>
-                </div>
-                <h3 className="process-step-title">We Design Your Custom Experience</h3>
-                <p className="process-step-text">Your people, your vibe, your story – brought to life</p>
-              </div>
-              <div className="process-step">
-                <div className="process-step-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="m22 2-7 20-4-9-9-4L22 2Z" /><path d="M22 2 11 13" /></svg>
-                </div>
-                <h3 className="process-step-title">You Enjoy the Magic</h3>
-                <p className="process-step-text">We run everything. You enjoy the moment</p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Mission – full-viewport big screen, photo + text + per-mission audio */}
         <section id="mission" className="mission-section">
@@ -322,7 +255,7 @@ function App() {
                 Born from two minds, one curious and one thoughtful, united by a simple idea: People deserve meaningful moments.
               </p>
               <p className="our-story-p">
-                From a campus conversation grew <strong className="our-story-brand">The Sprout</strong> a company built to bring people together through intentional, story-driven experiences.
+                From a campus conversation grew <strong className="our-story-brand">The Sprout</strong>, a company built to bring people together through intentional, story-driven experiences.
               </p>
               <p className="our-story-p">
                 Our uniqueness comes from designing moments that feel personal, human, and unforgettable.
@@ -420,7 +353,7 @@ function App() {
             <div className="site-footer-col">
               <h3 className="site-footer-heading">Company</h3>
               <ul className="site-footer-links">
-                <li><a href="#process">Our Process</a></li>
+                <li><a href="#mission">Our Mission</a></li>
                 <li><a href="#mission">Meet Hope</a></li>
                 <li><a href="#story">About Us</a></li>
               </ul>

@@ -14,9 +14,16 @@ export default function ExperienceCategories() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const progressRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null)
   const progressStartRef = useRef(0)
+  const tabsScrollRef = useRef<HTMLDivElement>(null)
+  const activeCardIndexRef = useRef(activeCardIndex)
+  const [tabsScroll, setTabsScroll] = useState({ left: 0, canScrollLeft: false, canScrollRight: false })
+
+  activeCardIndexRef.current = activeCardIndex
 
   const category = CATEGORIES[activeCategoryIndex]
   const totalCards = category.cards.length
+
+  const totalCategories = CATEGORIES.length
 
   const goToCard = useCallback(
     (index: number) => {
@@ -27,21 +34,70 @@ export default function ExperienceCategories() {
     [totalCards]
   )
 
-  const goToPrevCard = useCallback(() => goToCard(activeCardIndex - 1), [activeCardIndex, goToCard])
-  const goToNextCard = useCallback(() => goToCard(activeCardIndex + 1), [activeCardIndex, goToCard])
+  // Next: complete circular motion through cards; after last card, advance to next category
+  const goToNextCard = useCallback(() => {
+    if (activeCardIndex >= totalCards - 1) {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        setActiveCategoryIndex((i) => (i + 1) % totalCategories)
+        setActiveCardIndex(0)
+        setProgress(0)
+        progressStartRef.current = Date.now()
+        setIsTransitioning(false)
+        setIsEntering(true)
+        setTimeout(() => setIsEntering(false), 450)
+      }, 300)
+    } else {
+      goToCard(activeCardIndex + 1)
+    }
+  }, [activeCardIndex, totalCards, totalCategories, goToCard])
 
-  // Auto-advance cards (pauses when isCarouselPaused)
+  // Prev: at first card go to previous category's last card
+  const goToPrevCard = useCallback(() => {
+    if (activeCardIndex <= 0) {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        const prevCat = (activeCategoryIndex - 1 + totalCategories) % totalCategories
+        const prevCatCards = CATEGORIES[prevCat].cards.length
+        setActiveCategoryIndex(prevCat)
+        setActiveCardIndex(prevCatCards - 1)
+        setProgress(0)
+        progressStartRef.current = Date.now()
+        setIsTransitioning(false)
+        setIsEntering(true)
+        setTimeout(() => setIsEntering(false), 450)
+      }, 300)
+    } else {
+      goToCard(activeCardIndex - 1)
+    }
+  }, [activeCardIndex, activeCategoryIndex, totalCategories, goToCard])
+
+  // Auto-advance: full circular motion through cards, then transition to next category
   useEffect(() => {
     if (isCarouselPaused) return
     intervalRef.current = setInterval(() => {
-      setActiveCardIndex((i) => (i + 1) % totalCards)
-      setProgress(0)
-      progressStartRef.current = Date.now()
+      const current = activeCardIndexRef.current
+      if (current >= totalCards - 1) {
+        setIsTransitioning(true)
+        setTimeout(() => {
+          setActiveCategoryIndex((ci) => (ci + 1) % totalCategories)
+          setActiveCardIndex(0)
+          setProgress(0)
+          progressStartRef.current = Date.now()
+          setIsTransitioning(false)
+          setIsEntering(true)
+          setTimeout(() => setIsEntering(false), 450)
+        }, 300)
+      } else {
+        setActiveCardIndex(current + 1)
+        setProgress(0)
+        progressStartRef.current = Date.now()
+      }
     }, CARD_INTERVAL_MS)
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
     }
-  }, [isCarouselPaused, totalCards, activeCategoryIndex])
+  }, [isCarouselPaused, totalCards, totalCategories])
 
   // Circular progress (fills over CARD_INTERVAL_MS)
   useEffect(() => {
@@ -73,6 +129,64 @@ export default function ExperienceCategories() {
     }, 300)
   }
 
+  const updateTabsScrollState = useCallback(() => {
+    const el = tabsScrollRef.current
+    if (!el) return
+    const left = el.scrollLeft
+    const canScrollLeft = left > 0
+    const canScrollRight = left < el.scrollWidth - el.clientWidth - 1
+    setTabsScroll((prev) =>
+      prev.left !== left || prev.canScrollLeft !== canScrollLeft || prev.canScrollRight !== canScrollRight
+        ? { left, canScrollLeft, canScrollRight }
+        : prev
+    )
+  }, [])
+
+  useEffect(() => {
+    const el = tabsScrollRef.current
+    if (!el) return
+    updateTabsScrollState()
+    el.addEventListener('scroll', updateTabsScrollState)
+    const ro = new ResizeObserver(updateTabsScrollState)
+    ro.observe(el)
+    return () => {
+      el.removeEventListener('scroll', updateTabsScrollState)
+      ro.disconnect()
+    }
+  }, [updateTabsScrollState])
+
+  const scrollTabs = (direction: 'left' | 'right') => {
+    const el = tabsScrollRef.current
+    if (!el) return
+    const step = el.clientWidth * 0.6
+    el.scrollTo({ left: el.scrollLeft + (direction === 'left' ? -step : step), behavior: 'smooth' })
+  }
+
+  // Wheel: advance through cards (full circular motion), then natural transition to next category
+  const wheelAccumRef = useRef(0)
+  const wheelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const handleWheel = useCallback(
+    (e: React.WheelEvent) => {
+      if (isTransitioning) return
+      wheelAccumRef.current += e.deltaY
+      const threshold = 80
+      if (wheelAccumRef.current >= threshold) {
+        wheelAccumRef.current = 0
+        e.preventDefault()
+        goToNextCard()
+      } else if (wheelAccumRef.current <= -threshold) {
+        wheelAccumRef.current = 0
+        e.preventDefault()
+        goToPrevCard()
+      }
+      if (wheelTimeoutRef.current) clearTimeout(wheelTimeoutRef.current)
+      wheelTimeoutRef.current = setTimeout(() => {
+        wheelAccumRef.current = 0
+      }, 200)
+    },
+    [isTransitioning, goToNextCard, goToPrevCard]
+  )
+
   return (
     <section id="experience" className="experience-categories">
       <div className="experience-inner">
@@ -80,17 +194,45 @@ export default function ExperienceCategories() {
         <div className="experience-content-wrap">
           {/* Left column – category tabs, main title, description, nav at bottom */}
           <div className="experience-left">
-            <div className="experience-tabs">
-              {CATEGORIES.map((cat, i) => (
-                <button
-                  key={cat.id}
-                  type="button"
-                  className={`experience-tab ${i === activeCategoryIndex ? 'active' : ''}`}
-                  onClick={() => handleCategoryClick(i)}
-                >
-                  {cat.label}
-                </button>
-              ))}
+            <div className="experience-tabs-wrapper">
+              <button
+                type="button"
+                className="experience-tabs-arrow experience-tabs-arrow-left"
+                aria-label="Scroll tabs left"
+                onClick={() => scrollTabs('left')}
+                disabled={!tabsScroll.canScrollLeft}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <div
+                className="experience-tabs"
+                ref={tabsScrollRef}
+                onScroll={updateTabsScrollState}
+              >
+                {CATEGORIES.map((cat, i) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    className={`experience-tab ${i === activeCategoryIndex ? 'active' : ''}`}
+                    onClick={() => handleCategoryClick(i)}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                className="experience-tabs-arrow experience-tabs-arrow-right"
+                aria-label="Scroll tabs right"
+                onClick={() => scrollTabs('right')}
+                disabled={!tabsScroll.canScrollRight}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
             </div>
             <div
               className={`experience-text ${isTransitioning ? 'exit' : ''} ${isEntering ? 'enter' : ''}`}
@@ -165,6 +307,7 @@ export default function ExperienceCategories() {
             className="experience-cards-wrap"
             onMouseEnter={() => setIsCarouselPaused(true)}
             onMouseLeave={() => setIsCarouselPaused(false)}
+            onWheel={handleWheel}
           >
             <div className="experience-cards-fade" aria-hidden />
             <div

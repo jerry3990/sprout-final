@@ -58,7 +58,7 @@
   flex-direction: column;
   gap: 0.15em;
   font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
+  font-weight: 700; /* strong – hero headline */
   line-height: 1.1;
   color: #fff;
   margin: 0 0 1.25rem;
@@ -147,13 +147,14 @@
 
 .section-title {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 700; /* strong – section headline */
   color: #fff;
   margin: 0 0 1rem;
 }
 
 .section-text {
   font-size: 1.125rem;
+  font-weight: 300; /* thin – body/paragraph */
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
   line-height: 1.5;
@@ -222,12 +223,13 @@
 
 .process-feature-title {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 700; /* strong – feature heading */
   color: #333;
   margin: 0 0 0.75rem;
 }
 
 .process-feature-text {
+  font-weight: 300; /* thin – description */
   color: #666;
   line-height: 1.6;
   margin: 0;
@@ -249,6 +251,7 @@
 
 .process-heading-text {
   font-size: 1rem;
+  font-weight: 300; /* thin – supporting text */
   line-height: 1.5;
   color: #666;
   max-width: 42rem;
@@ -292,7 +295,7 @@
 
 .process-step-title {
   font-size: 1.125rem;
-  font-weight: 700;
+  font-weight: 700; /* strong – step heading */
   color: #333;
   margin: 0 0 0.5rem;
 }
@@ -305,6 +308,7 @@
 
 .process-step-text {
   font-size: 0.875rem;
+  font-weight: 300; /* thin – step description */
   color: #666;
   line-height: 1.6;
   margin: 0;
@@ -327,23 +331,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0;
-  background: #f8f7f0;
+  padding: clamp(2rem, 4vw, 3rem) 0;
+  background: #f0ebe3;
 }
 
 .mission-container {
   width: 100%;
-  max-width: 1600px;
-  height: calc(100vh - 4rem);
-  min-height: 520px;
+  max-width: 1280px;
+  height: auto;
+  min-height: 420px;
+  max-height: 82vh;
   margin: 0 auto;
   padding: 0 1.25rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(0, 1fr);
+  grid-template-rows: auto;
   gap: 0;
   align-items: stretch;
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow:
     0 4px 6px rgba(0, 0, 0, 0.04),
@@ -363,7 +368,7 @@
 .mission-visual {
   position: relative;
   width: 100%;
-  min-height: 280px;
+  min-height: 260px;
   overflow: hidden;
   background: #f0f0f0;
 }
@@ -400,14 +405,14 @@
   display: block;
 }
 
-/* Right: mission list + content (~40–45% width, full height) */
+/* Right: mission list + content (~40–45% width) */
 .mission-content {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-  padding: clamp(2rem, 5vw, 3.5rem) clamp(2rem, 5vw, 4rem);
-  padding-top: clamp(1.75rem, 4vw, 2.5rem);
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.75rem, 4vw, 2.75rem);
+  padding-top: clamp(1.5rem, 3vw, 2rem);
   min-height: 0;
   overflow-y: auto;
   width: 100%;
@@ -415,11 +420,11 @@
 }
 
 .mission-heading {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 600;
-  color: #333;
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700; /* strong – section headline */
+  color: #000;
   text-transform: none;
-  margin: 0 0 clamp(1.5rem, 4vw, 2.25rem);
+  margin: 0 0 clamp(1rem, 1.75vw, 1.5rem);
   letter-spacing: 0.01em;
   line-height: 1.1;
 }
@@ -430,7 +435,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+  gap: clamp(0.5rem, 1.25vw, 0.75rem);
   width: 100%;
   flex: 1;
   min-height: 0;
@@ -445,7 +450,7 @@
 }
 
 .mission-item-active {
-  background: #ede8df;
+  background: #e8e2d8;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
@@ -453,15 +458,15 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2.5vw, 1.5rem);
-  padding: clamp(1.25rem, 2.5vw, 1.5rem) clamp(1.5rem, 3vw, 2rem);
+  gap: clamp(0.85rem, 1.75vw, 1.35rem);
+  padding: clamp(0.85rem, 1.75vw, 1.15rem) clamp(1.1rem, 2.25vw, 1.5rem);
   background: none;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   text-align: left;
   font: inherit;
-  color: #333;
+  color: #000;
   transition: color 0.2s ease, background 0.2s ease;
   outline: none;
   box-sizing: border-box;
@@ -481,9 +486,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #333;
-  width: clamp(2rem, 4vw, 2.5rem);
-  height: clamp(2rem, 4vw, 2.5rem);
+  color: #000;
+  width: clamp(1.65rem, 2.75vw, 2.15rem);
+  height: clamp(1.65rem, 2.75vw, 2.15rem);
 }
 
 .mission-trigger-icon svg {
@@ -492,16 +497,16 @@
 }
 
 .mission-trigger-title {
-  font-size: clamp(1.375rem, 3.5vw, 1.875rem);
-  font-weight: 700;
-  color: #333;
+  font-size: clamp(1.1rem, 2.25vw, 1.45rem);
+  font-weight: 600; /* semi-bold – list item title */
+  color: #000;
   line-height: 1.25;
 }
 
 .mission-panel {
   display: none;
-  padding: 0 1.5rem 1.5rem;
-  padding-left: calc(1.5rem + 2rem + 1.5rem);
+  padding: 0 1.15rem 1.15rem;
+  padding-left: calc(1.15rem + 2.15rem + 1.15rem);
   margin: 0;
   overflow: hidden;
   box-sizing: border-box;
@@ -518,29 +523,30 @@
 
 .mission-panel-description {
   margin: 0;
-  font-size: clamp(1.125rem, 2.25vw, 1.375rem);
-  line-height: 1.6;
-  color: #555;
+  font-size: clamp(1.05rem, 1.65vw, 1.25rem);
+  font-weight: 300; /* thin – body/description */
+  line-height: 1.55;
+  color: #000;
   max-width: 42ch;
 }
 
 @media (min-width: 768px) {
   .mission-trigger-icon {
-    width: clamp(2.25rem, 4vw, 2.75rem);
-    height: clamp(2.25rem, 4vw, 2.75rem);
+    width: clamp(1.9rem, 3vw, 2.35rem);
+    height: clamp(1.9rem, 3vw, 2.35rem);
   }
   .mission-panel {
-    padding-left: calc(1.5rem + 2.25rem + 1.5rem);
+    padding-left: calc(1.15rem + 2.35rem + 1.15rem);
   }
 }
 
 @media (min-width: 1024px) {
   .mission-panel {
-    padding-left: calc(2rem + 2.75rem + 1.5rem);
+    padding-left: calc(1.35rem + 2.35rem + 1.15rem);
   }
 }
 
-/* Mission mute control – right side, big text so it feels like full screen */
+/* Mission mute control */
 .mission-controls {
   position: absolute;
   right: 0;
@@ -549,7 +555,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(2rem, 5vw, 3rem);
+  padding: clamp(1.1rem, 2.75vw, 1.6rem) clamp(1.35rem, 3.25vw, 1.9rem);
   pointer-events: none;
 }
 
@@ -558,8 +564,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(48px, 6vw, 56px);
-  height: clamp(48px, 6vw, 56px);
+  width: 48px;
+  height: 48px;
   padding: 0;
   background: rgba(0, 0, 0, 0.5);
   border: none;
@@ -582,8 +588,8 @@
 }
 
 .mission-control-icon {
-  width: clamp(22px, 3vw, 28px);
-  height: clamp(22px, 3vw, 28px);
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
 }
 
@@ -616,90 +622,95 @@
 
 .our-story-section {
   width: 100%;
-  padding: clamp(3rem, 8vw, 5rem) 1.5rem;
-  background: #fff;
+  min-height: 100vh;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+  background: #f0ebe3;
+  display: flex;
+  align-items: center;
 }
 
 .our-story-container {
-  max-width: 72rem;
+  max-width: 88rem;
+  width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
-  align-items: start;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
 }
 
 @media (min-width: 1024px) {
   .our-story-container {
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: clamp(3rem, 6vw, 5rem);
     align-items: center;
   }
 }
 
 .our-story-content {
-  max-width: 36rem;
+  max-width: 42rem;
 }
 
 .our-story-heading {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
   font-weight: 700;
-  color: #1a1a1a;
+  color: #000;
   text-transform: uppercase;
-  margin: 0 0 1.5rem;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 
 .our-story-p {
-  font-size: 1rem;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 300; /* thin – body paragraph */
   line-height: 1.65;
-  color: #333;
-  margin: 0 0 1rem;
+  color: #000;
+  margin: 0 0 1.25rem;
 }
 
 @media (min-width: 768px) {
   .our-story-p {
-    font-size: 1.0625rem;
+    font-size: clamp(1.2rem, 2.25vw, 1.5rem);
   }
 }
 
 .our-story-brand {
   font-weight: 700;
-  color: #2d7a6e;
+  color: #000;
 }
 
 .our-story-quote {
   margin: 1.5rem 0 1.25rem;
-  padding: 1.25rem 1.5rem;
-  background: #d4e8e4;
-  border-radius: 12px;
+  padding: clamp(1.5rem, 3vw, 2rem) clamp(1.75rem, 3.5vw, 2.25rem);
+  background: #e8e2d8;
+  border-radius: 16px;
   border: none;
-  font-size: 1rem;
+  font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+  font-weight: 400;
   font-style: italic;
   line-height: 1.6;
-  color: #1a1a1a;
+  color: #000;
 }
 
 @media (min-width: 768px) {
   .our-story-quote {
-    font-size: 1.0625rem;
-    padding: 1.5rem 1.75rem;
+    padding: clamp(1.75rem, 3.5vw, 2.25rem) clamp(2rem, 4vw, 2.5rem);
   }
 }
 
 .our-story-link {
   display: inline-block;
-  font-size: 1rem;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
   font-weight: 600;
-  color: #2d7a6e;
+  color: #000;
   text-decoration: none;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   transition: color 0.2s ease;
 }
 
 .our-story-link:hover {
-  color: #1f5a52;
+  color: #333;
 }
 
 .our-story-media {
@@ -709,10 +720,10 @@
 
 .our-story-media-inner {
   position: relative;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   aspect-ratio: 4 / 3;
-  max-height: 420px;
+  max-height: min(65vh, 560px);
   background: #f0e6d8;
 }
 
@@ -728,8 +739,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 72px;
-  height: 72px;
+  width: clamp(80px, 12vw, 120px);
+  height: clamp(80px, 12vw, 120px);
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
@@ -740,8 +751,8 @@
 }
 
 .our-story-play svg {
-  width: 36px;
-  height: 36px;
+  width: clamp(40px, 6vw, 56px);
+  height: clamp(40px, 6vw, 56px);
   margin-left: 4px;
 }
 
@@ -751,30 +762,36 @@
 
 .get-in-touch-section {
   width: 100%;
-  padding: clamp(3rem, 8vw, 4.5rem) 1.5rem;
-  background: #1b4332;
+  min-height: 100vh;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem);
+  background: #556b2f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .get-in-touch-heading {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
-  margin: 0 0 1.5rem;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
   letter-spacing: -0.02em;
-  max-width: 72rem;
+  max-width: 88rem;
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
 }
 
 .get-in-touch-media {
-  max-width: 72rem;
+  max-width: 88rem;
+  width: 100%;
   margin: 0 auto;
   position: relative;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
-  min-height: 280px;
+  aspect-ratio: 16 / 9;
+  min-height: min(45vh, 420px);
 }
 
 .get-in-touch-media-inner {
@@ -794,8 +811,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 80px;
-  height: 80px;
+  width: clamp(88px, 12vw, 128px);
+  height: clamp(88px, 12vw, 128px);
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.45);
   color: #fff;
@@ -806,60 +823,61 @@
 }
 
 .get-in-touch-play svg {
-  width: 40px;
-  height: 40px;
+  width: clamp(44px, 6vw, 64px);
+  height: clamp(44px, 6vw, 64px);
   margin-left: 4px;
 }
 
 .get-in-touch-overlay {
   position: absolute;
   left: 50%;
-  bottom: 1.5rem;
+  bottom: clamp(1.25rem, 2.5vw, 2rem);
   transform: translateX(-50%);
-  width: calc(100% - 3rem);
-  max-width: 32rem;
-  padding: 1.5rem 1.75rem;
+  width: calc(100% - 2.5rem);
+  max-width: 36rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.75rem, 3.5vw, 2.5rem);
   background: #f5f0e8;
-  border-radius: 12px;
+  border-radius: 16px;
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .get-in-touch-overlay {
-    padding: 1.75rem 2rem;
-    bottom: 2rem;
+    padding: clamp(1.75rem, 3.5vw, 2.5rem) clamp(2rem, 4vw, 3rem);
+    bottom: clamp(1.5rem, 3vw, 2.5rem);
   }
 }
 
 .get-in-touch-text {
-  font-size: 0.9375rem;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 300; /* thin – overlay body */
   line-height: 1.6;
-  color: #1a1a1a;
+  color: #000;
   margin: 0 0 1.25rem;
 }
 
 @media (min-width: 768px) {
   .get-in-touch-text {
-    font-size: 1rem;
+    font-size: clamp(1.2rem, 2.25vw, 1.5rem);
     margin: 0 0 1.5rem;
   }
 }
 
 .get-in-touch-btn {
   display: inline-block;
-  padding: 0.875rem 1.75rem;
-  font-size: 0.875rem;
-  font-weight: 700;
+  padding: clamp(0.875rem, 1.5vw, 1.25rem) clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1rem, 1.75vw, 1.25rem);
+  font-weight: 600; /* semi-bold – CTA */
   letter-spacing: 0.02em;
   color: #fff;
-  background: #1a1a1a;
-  border-radius: 8px;
+  background: #3d4d2a;
+  border-radius: 10px;
   text-decoration: none;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .get-in-touch-btn:hover {
-  background: #333;
+  background: #2d3d1f;
   transform: translateY(-1px);
 }
 
@@ -901,12 +919,13 @@
 
 .site-footer-name {
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 700; /* strong – brand name */
   color: #fff;
 }
 
 .site-footer-desc {
   font-size: 0.9375rem;
+  font-weight: 300; /* thin – footer body */
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
   margin: 0 0 1.25rem;
@@ -924,6 +943,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9375rem;
+  font-weight: 400;
   color: #fff;
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -935,7 +955,7 @@
 
 .site-footer-heading {
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600; /* semi-bold – column heading */
   color: #fff;
   margin: 0 0 1rem;
   text-transform: none;
@@ -953,6 +973,7 @@
 
 .site-footer-col .site-footer-links a {
   font-size: 0.9375rem;
+  font-weight: 300; /* thin – footer links */
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   transition: color 0.2s ease;

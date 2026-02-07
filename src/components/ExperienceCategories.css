@@ -4,10 +4,10 @@
    ======================================== */
 
 .experience-categories {
-  --card-gap: 1.5rem;
+  --card-gap: clamp(1.5rem, 2.5vw, 2rem);
   --card-width: calc((100% - var(--card-gap)) / 2);
-  background: #f5f2eb;
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+  background: #f0ebe3;
+  padding: clamp(2rem, 5vw, 4rem) clamp(2.5rem, 6vw, 5rem) clamp(2.5rem, 5vw, 4rem);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@
 /* Two-column: left = texts, right = full-height cards (reference image) */
 .experience-content-wrap {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: minmax(320px, 1fr) 1.5fr;
   gap: clamp(2rem, 4vw, 4rem);
   align-items: stretch;
   flex: 1;
@@ -50,30 +50,78 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 0;
+  min-width: 0; /* allow grid shrink; tabs scroll if needed */
+  position: relative;
+  z-index: 3; /* above cards fade so tabs are never cut or faded */
 }
 
-.experience-left .experience-tabs {
+.experience-left .experience-tabs-wrapper {
   margin-bottom: clamp(1.5rem, 3vw, 2rem);
 }
 
-/* Category tabs – pill buttons (RKTEWT / GZRRC style) */
+/* Tabs row: left arrow + scrollable tabs + right arrow */
+.experience-tabs-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.experience-tabs-arrow {
+  flex-shrink: 0;
+  width: clamp(40px, 5vw, 48px);
+  height: clamp(40px, 5vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  background: #f0ebe3;
+  color: #000;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+.experience-tabs-arrow:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.4);
+}
+.experience-tabs-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Category tabs – pill buttons, single line, scroll via arrows only; no scrollbar */
 .experience-tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.75rem;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 4px 0 6px 0;
+  padding-inline-end: 8px;
+  margin-inline-end: -8px;
+}
+.experience-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .experience-tab {
-  padding: 0.75rem 1.5rem;
-  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
-  font-weight: 600;
+  flex-shrink: 0;
+  padding: clamp(0.85rem, 1.5vw, 1.1rem) clamp(1.25rem, 2vw, 1.75rem);
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  font-weight: 600; /* semi-bold – tab label */
   letter-spacing: 0.05em;
-  color: #1a1a1a;
+  color: #000;
   background: transparent;
   border: 1.5px solid rgba(0, 0, 0, 0.2);
   border-radius: 999px;
   cursor: pointer;
   transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  white-space: nowrap;
 }
 
 .experience-tab:hover {
@@ -82,9 +130,9 @@
 }
 
 .experience-tab.active {
-  background: #1a1a1a;
+  background: #000;
   color: #fff;
-  border-color: #1a1a1a;
+  border-color: #000;
 }
 
 /* Left column text block – title + description */
@@ -111,19 +159,20 @@
 }
 
 .experience-title {
-  font-size: clamp(1.75rem, 2.8vw, 2.5rem);
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 1rem;
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-weight: 700; /* strong – category heading */
+  color: #000;
+  margin: 0 0 1.25rem;
   line-height: 1.2;
   letter-spacing: -0.02em;
   text-align: left;
 }
 
 .experience-description {
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 300; /* thin – body/description */
   line-height: 1.6;
-  color: rgba(0, 0, 0, 0.7);
+  color: #000;
   margin: 0;
   text-align: left;
 }
@@ -132,13 +181,13 @@
 .experience-nav {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
 }
 
 .experience-nav-btn {
-  width: 56px;
-  height: 56px;
+  width: clamp(56px, 7vw, 72px);
+  height: clamp(56px, 7vw, 72px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,7 +195,7 @@
   border: none;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.08);
-  color: #1a1a1a;
+  color: #000;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
 }
@@ -183,10 +232,10 @@
 }
 
 .experience-counter {
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.6);
-  min-width: 3rem;
+  font-size: clamp(1.15rem, 1.75vw, 1.35rem);
+  font-weight: 400; /* regular – counter */
+  color: #000;
+  min-width: 3.5rem;
   text-align: center;
 }
 
@@ -209,7 +258,7 @@
   width: clamp(80px, 8vw, 120px);
   z-index: 2;
   pointer-events: none;
-  background: linear-gradient(to right, #f5f2eb 0%, transparent 100%);
+  background: linear-gradient(to right, #f0ebe3 0%, transparent 100%);
 }
 
 .experience-cards-track {
@@ -248,7 +297,7 @@
   max-width: var(--card-width);
   height: 100%;
   min-height: 520px;
-  background: #ebe7df;
+  background: #fff;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -281,9 +330,9 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(1rem, 2vw, 1.5rem);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
   min-height: 0;
-  padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(1.25rem, 2vw, 1.75rem);
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.5rem, 2.5vw, 2.25rem);
 }
 
 .experience-card-text {
@@ -295,9 +344,9 @@
 }
 
 .experience-card-title {
-  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
-  font-weight: 700;
-  color: #1a1a1a;
+  font-size: clamp(1.35rem, 2.25vw, 1.85rem);
+  font-weight: 700; /* strong – card heading */
+  color: #000;
   margin: 0;
   padding: 0;
   line-height: 1.25;
@@ -305,9 +354,10 @@
 }
 
 .experience-card-description {
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-weight: 300; /* thin – card body */
   line-height: 1.5;
-  color: rgba(0, 0, 0, 0.65);
+  color: #000;
   margin: 0.35rem 0 0;
   flex: 1;
   min-height: 0;
@@ -320,10 +370,10 @@
 .experience-card-cta {
   flex-shrink: 0;
   display: inline-block;
-  padding: clamp(0.6rem, 1vw, 0.75rem) clamp(1rem, 1.5vw, 1.25rem);
-  font-size: clamp(0.9rem, 1.1vw, 1rem);
-  font-weight: 600;
-  color: #1a1a1a;
+  padding: clamp(0.75rem, 1.25vw, 1rem) clamp(1.25rem, 2vw, 1.5rem);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  font-weight: 600; /* semi-bold – CTA */
+  color: #000;
   background: transparent;
   border: 1.5px solid rgba(0, 0, 0, 0.25);
   border-radius: 10px;

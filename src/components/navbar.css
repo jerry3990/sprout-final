@@ -97,7 +97,7 @@
 .nav-link {
   position: relative;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400; /* regular – nav links, lighter */
   letter-spacing: 0.5px;
   color: var(--accent-color);
   text-decoration: none;
@@ -184,7 +184,7 @@
 
 .logo-name {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 600; /* semi-bold – brand name */
   letter-spacing: 0.5px;
   color: var(--accent-color);
   margin: 0;
@@ -300,7 +300,7 @@
 
 .mobile-logo .logo-tagline {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 600; /* semi-bold – mobile brand */
   letter-spacing: 0.5px;
   color: var(--accent-color);
   margin: 0;
@@ -325,7 +325,7 @@
 
 .mobile-nav-link {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 400; /* regular – mobile nav */
   letter-spacing: 0.5px;
   color: var(--accent-color);
   text-decoration: none;
@@ -409,7 +409,7 @@
     left: 50%;
     transform: translateX(-50%);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 600; /* semi-bold – mobile bar brand */
     letter-spacing: 0.5px;
     color: var(--accent-color);
   }
