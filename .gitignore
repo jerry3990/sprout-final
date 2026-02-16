@@ -46,3 +46,7 @@ public/video/
 *.zip
 *.rar
 *.7z
+
+# Allow site assets in public
+!public/logoblank.png
+!public/right-arrow.png
