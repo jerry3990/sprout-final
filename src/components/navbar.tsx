@@ -10,6 +10,13 @@ const Navbar = () => {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setIsScrolled(scrollY > 50);
@@ -29,8 +36,8 @@ const Navbar = () => {
 
   const navItems = [
     { id: 'home', label: 'Home', side: 'left' },
-    { id: 'resources', label: 'Resources', side: 'left' },
-    { id: 'about', label: 'About', side: 'right' },
+    { id: 'experience', label: 'Experience', side: 'left' },
+    { id: 'story', label: 'About', side: 'right' },
     { id: 'contact', label: 'Contact Us', side: 'right' },
   ];
 
@@ -70,18 +77,17 @@ const Navbar = () => {
                       src="/logoblank.png"
                       alt="Sprout"
                       className="logo-img"
-                      width={48}
-                      height={48}
+                      width={62}
+                      height={62}
                       onError={() => setLogoError(true)}
                     />
                   ) : (
-                    <svg width="48" height="48" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-fallback-svg">
-                      <circle cx="25" cy="25" r="24" stroke="#f5f5f5" strokeWidth="1.5"/>
-                      <path d="M25 8L35 18L30 25L35 32L25 42L15 32L20 25L15 18L25 8Z" fill="#f5f5f5"/>
+                    <svg width="62" height="62" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-fallback-svg">
+                      <circle cx="25" cy="25" r="24" stroke="#f5f5f5" strokeWidth="1.5" />
+                      <path d="M25 8L35 18L30 25L35 32L25 42L15 32L20 25L15 18L25 8Z" fill="#f5f5f5" />
                     </svg>
                   )}
                 </div>
-                <p className="logo-name">sprout</p>
               </div>
             </a>
           </div>
@@ -132,12 +138,11 @@ const Navbar = () => {
                   />
                 ) : (
                   <svg width="52" height="52" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="25" cy="25" r="24" stroke="#f5f5f5" strokeWidth="1.5"/>
-                    <path d="M25 8L35 18L30 25L35 32L25 42L15 32L20 25L15 18L25 8Z" fill="#f5f5f5"/>
+                    <circle cx="25" cy="25" r="24" stroke="#f5f5f5" strokeWidth="1.5" />
+                    <path d="M25 8L35 18L30 25L35 32L25 42L15 32L20 25L15 18L25 8Z" fill="#f5f5f5" />
                   </svg>
                 )}
               </div>
-              <p className="logo-tagline">sprout</p>
             </div>
 
             <ul className="mobile-nav-list">

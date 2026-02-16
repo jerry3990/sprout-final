@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { CATEGORIES } from '../data/categories'
+import NavControl from './NavControl'
 import './ExperienceCategories.css'
 
 const CARD_INTERVAL_MS = 5000
@@ -14,11 +15,11 @@ export default function ExperienceCategories() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const progressRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null)
   const progressStartRef = useRef(0)
-  const tabsScrollRef = useRef<HTMLDivElement>(null)
   const activeCardIndexRef = useRef(activeCardIndex)
-  const [tabsScroll, setTabsScroll] = useState({ left: 0, canScrollLeft: false, canScrollRight: false })
 
-  activeCardIndexRef.current = activeCardIndex
+  useEffect(() => {
+    activeCardIndexRef.current = activeCardIndex
+  }, [activeCardIndex])
 
   const category = CATEGORIES[activeCategoryIndex]
   const totalCards = category.cards.length
@@ -74,6 +75,10 @@ export default function ExperienceCategories() {
 
   // Auto-advance: full circular motion through cards, then transition to next category
   useEffect(() => {
+    progressStartRef.current = Date.now()
+  }, [])
+
+  useEffect(() => {
     if (isCarouselPaused) return
     intervalRef.current = setInterval(() => {
       const current = activeCardIndexRef.current
@@ -99,7 +104,7 @@ export default function ExperienceCategories() {
     }
   }, [isCarouselPaused, totalCards, totalCategories])
 
-  // Circular progress (fills over CARD_INTERVAL_MS)
+  // Timer progress 0→1 over CARD_INTERVAL_MS (stops when paused)
   useEffect(() => {
     if (isCarouselPaused) return
     const start = progressStartRef.current
@@ -127,39 +132,6 @@ export default function ExperienceCategories() {
       setIsEntering(true)
       setTimeout(() => setIsEntering(false), 450)
     }, 300)
-  }
-
-  const updateTabsScrollState = useCallback(() => {
-    const el = tabsScrollRef.current
-    if (!el) return
-    const left = el.scrollLeft
-    const canScrollLeft = left > 0
-    const canScrollRight = left < el.scrollWidth - el.clientWidth - 1
-    setTabsScroll((prev) =>
-      prev.left !== left || prev.canScrollLeft !== canScrollLeft || prev.canScrollRight !== canScrollRight
-        ? { left, canScrollLeft, canScrollRight }
-        : prev
-    )
-  }, [])
-
-  useEffect(() => {
-    const el = tabsScrollRef.current
-    if (!el) return
-    updateTabsScrollState()
-    el.addEventListener('scroll', updateTabsScrollState)
-    const ro = new ResizeObserver(updateTabsScrollState)
-    ro.observe(el)
-    return () => {
-      el.removeEventListener('scroll', updateTabsScrollState)
-      ro.disconnect()
-    }
-  }, [updateTabsScrollState])
-
-  const scrollTabs = (direction: 'left' | 'right') => {
-    const el = tabsScrollRef.current
-    if (!el) return
-    const step = el.clientWidth * 0.6
-    el.scrollTo({ left: el.scrollLeft + (direction === 'left' ? -step : step), behavior: 'smooth' })
   }
 
   // Wheel: advance through cards (full circular motion), then natural transition to next category
@@ -190,115 +162,44 @@ export default function ExperienceCategories() {
   return (
     <section id="experience" className="experience-categories">
       <div className="experience-inner">
-        {/* Two-column: left = tabs + text + nav, right = cards (exact as photo) */}
+        {/* Top: full-width horizontal row with four tabs – fit in box, spacing inside/outside */}
+        <div className="experience-tabs-row">
+          <div className="experience-tabs">
+            {CATEGORIES.map((cat, i) => (
+              <button
+                key={cat.id}
+                type="button"
+                className={`experience-tab ${i === activeCategoryIndex ? 'active' : ''}`}
+                onClick={() => handleCategoryClick(i)}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Two-column: left = title + description + nav, right = cards */}
         <div className="experience-content-wrap">
-          {/* Left column – category tabs, main title, description, nav at bottom */}
+          {/* Left column – main title, description, nav at bottom */}
           <div className="experience-left">
-            <div className="experience-tabs-wrapper">
-              <button
-                type="button"
-                className="experience-tabs-arrow experience-tabs-arrow-left"
-                aria-label="Scroll tabs left"
-                onClick={() => scrollTabs('left')}
-                disabled={!tabsScroll.canScrollLeft}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <div
-                className="experience-tabs"
-                ref={tabsScrollRef}
-                onScroll={updateTabsScrollState}
-              >
-                {CATEGORIES.map((cat, i) => (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    className={`experience-tab ${i === activeCategoryIndex ? 'active' : ''}`}
-                    onClick={() => handleCategoryClick(i)}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
-              </div>
-              <button
-                type="button"
-                className="experience-tabs-arrow experience-tabs-arrow-right"
-                aria-label="Scroll tabs right"
-                onClick={() => scrollTabs('right')}
-                disabled={!tabsScroll.canScrollRight}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-            </div>
             <div
               className={`experience-text ${isTransitioning ? 'exit' : ''} ${isEntering ? 'enter' : ''}`}
             >
               <h2 className="experience-title">{category.title}</h2>
               <p className="experience-description">{category.description}</p>
             </div>
-            <div className="experience-nav">
-              <button
-                type="button"
-                className="experience-nav-btn"
-                onClick={goToPrevCard}
-                aria-label="Previous card"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <span className="experience-counter">
-                {activeCardIndex + 1}/{totalCards}
-              </span>
-              <button
-                type="button"
-                className="experience-nav-btn experience-nav-btn-right"
-                onClick={goToNextCard}
-                aria-label="Next card"
-              >
-                <svg
-                  className="experience-progress-ring"
-                  width="56"
-                  height="56"
-                  viewBox="0 0 48 48"
-                  aria-hidden
-                >
-                  <circle
-                    className="experience-progress-bg"
-                    cx="24"
-                    cy="24"
-                    r="20"
-                    fill="none"
-                    strokeWidth="2"
-                  />
-                  <circle
-                    className="experience-progress-fill"
-                    cx="24"
-                    cy="24"
-                    r="20"
-                    fill="none"
-                    strokeWidth="2"
-                    strokeDasharray={2 * Math.PI * 20}
-                    strokeDashoffset={2 * Math.PI * 20 * (1 - progress)}
-                    transform="rotate(-90 24 24)"
-                  />
-                </svg>
-                <svg
-                  className="experience-nav-arrow"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
+            <div
+              className="experience-nav-wrap"
+              onMouseEnter={() => setIsCarouselPaused(true)}
+              onMouseLeave={() => setIsCarouselPaused(false)}
+            >
+              <NavControl
+                currentIndex={activeCardIndex}
+                total={totalCards}
+                onPrev={goToPrevCard}
+                onNext={goToNextCard}
+                timerProgress={progress}
+              />
             </div>
           </div>
 
@@ -329,7 +230,7 @@ export default function ExperienceCategories() {
                       <h3 className="experience-card-title">{card.title}</h3>
                       <p className="experience-card-description">{card.description}</p>
                     </div>
-                    <a href="#resources" className="experience-card-cta">
+                    <a href="#contact" className="experience-card-cta">
                       Read More
                     </a>
                   </div>
@@ -338,6 +239,9 @@ export default function ExperienceCategories() {
             </div>
           </div>
         </div>
+
+        {/* Section title – full width, big text */}
+        <h2 className="experience-section-title">Experience Categories</h2>
       </div>
     </section>
   )

@@ -7,32 +7,37 @@
   --card-gap: clamp(1.5rem, 2.5vw, 2rem);
   --card-width: calc((100% - var(--card-gap)) / 2);
   background: #f0ebe3;
-  padding: clamp(2rem, 5vw, 4rem) clamp(2.5rem, 6vw, 5rem) clamp(2.5rem, 5vw, 4rem);
+  padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 5vw, 5rem)
+    clamp(1.5rem, 4vw, 4rem);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 .experience-inner {
   width: 100%;
-  max-width: 1600px;
+  max-width: min(1600px, 100%);
   margin: 0 auto;
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
 }
 
-/* Two-column: left = texts, right = full-height cards (reference image) */
+/* Two-column: 45% / 55%; left covers more section */
 .experience-content-wrap {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) 1.5fr;
-  gap: clamp(2rem, 4vw, 4rem);
+  grid-template-columns: 45% 55%;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   align-items: stretch;
   flex: 1;
   min-height: 0;
-  min-height: calc(100vh - clamp(3rem, 6vw, 5rem));
 }
 
 @media (max-width: 900px) {
@@ -44,95 +49,81 @@
   }
 }
 
-/* Left column – tabs at top, title, description, nav at bottom */
-.experience-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 0;
-  min-width: 0; /* allow grid shrink; tabs scroll if needed */
-  position: relative;
-  z-index: 3; /* above cards fade so tabs are never cut or faded */
+/* Top: full-width horizontal row – tabs fit in box with spacing inside/outside, little space from top */
+.experience-tabs-row {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
 }
 
-.experience-left .experience-tabs-wrapper {
-  margin-bottom: clamp(1.5rem, 3vw, 2rem);
-}
-
-/* Tabs row: left arrow + scrollable tabs + right arrow */
-.experience-tabs-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 0;
-}
-
-.experience-tabs-arrow {
-  flex-shrink: 0;
-  width: clamp(40px, 5vw, 48px);
-  height: clamp(40px, 5vw, 48px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: 1.5px solid rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-  background: #f0ebe3;
-  color: #000;
-  cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
-}
-.experience-tabs-arrow:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.06);
-  border-color: rgba(0, 0, 0, 0.4);
-}
-.experience-tabs-arrow:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-/* Category tabs – pill buttons, single line, scroll via arrows only; no scrollbar */
 .experience-tabs {
   display: flex;
   flex-wrap: nowrap;
-  gap: 0.75rem;
-  min-width: 0;
+  gap: clamp(0.5rem, 1.2vw, 1.25rem);
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.25rem 0;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding: 4px 0 6px 0;
-  padding-inline-end: 8px;
-  margin-inline-end: -8px;
+  margin: 0 calc(-1 * clamp(1rem, 4vw, 2rem));
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
 }
+
 .experience-tabs::-webkit-scrollbar {
   display: none;
 }
 
 .experience-tab {
-  flex-shrink: 0;
-  padding: clamp(0.85rem, 1.5vw, 1.1rem) clamp(1.25rem, 2vw, 1.75rem);
-  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
-  font-weight: 600; /* semi-bold – tab label */
+  flex: 0 0 auto;
+  padding: clamp(0.5rem, 1vw, 0.85rem) clamp(0.75rem, 1.2vw, 1.4rem);
+  font-size: clamp(0.7rem, 1.1vw, 0.9rem);
+  font-weight: 600;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: #000;
-  background: transparent;
-  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  background: #fff;
+  border: 1.5px solid #000;
   border-radius: 999px;
   cursor: pointer;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    font-weight 0.2s ease;
   white-space: nowrap;
+  text-align: center;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .experience-tab:hover {
-  border-color: rgba(0, 0, 0, 0.4);
-  background: rgba(0, 0, 0, 0.04);
+  background: #194236;
+  color: #fff;
+  border-color: #194236;
 }
 
 .experience-tab.active {
   background: #000;
   color: #fff;
   border-color: #000;
+  font-weight: 700;
+}
+
+/* Left column – title, description, nav; balanced spacing on both sides */
+.experience-left {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  position: relative;
+  z-index: 3;
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
+  height: 100%;
+  box-sizing: border-box;
 }
 
 /* Left column text block – title + description */
@@ -159,115 +150,69 @@
 }
 
 .experience-title {
-  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
-  font-weight: 700; /* strong – category heading */
+  font-size: clamp(1.35rem, 3vw, 2.5rem);
+  font-weight: 700;
   color: #000;
-  margin: 0 0 1.25rem;
+  margin: 0 0 clamp(0.75rem, 1.5vw, 1.35rem);
   line-height: 1.2;
   letter-spacing: -0.02em;
+  text-transform: uppercase;
   text-align: left;
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .experience-description {
-  font-size: clamp(1.1rem, 2vw, 1.4rem);
-  font-weight: 300; /* thin – body/description */
-  line-height: 1.6;
-  color: #000;
+  font-size: clamp(1.05rem, 1.75vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: #1a1a1a;
   margin: 0;
-  text-align: left;
-}
-
-/* Nav at bottom of left column – left arrow, 1/4, right arrow */
-.experience-nav {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 1.5vw, 1.5rem);
-  margin-top: clamp(2rem, 4vw, 3rem);
-}
-
-.experience-nav-btn {
-  width: clamp(56px, 7vw, 72px);
-  height: clamp(56px, 7vw, 72px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.08);
-  color: #000;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  text-align: left;
+  max-width: 100%;
+  letter-spacing: 0.01em;
 }
 
-.experience-nav-btn:hover {
-  background: rgba(0, 0, 0, 0.14);
-  transform: scale(1.05);
+/* Nav at bottom of left (text) column */
+.experience-nav-wrap {
+  margin-top: auto;
+  padding-top: clamp(2rem, 3vw, 2.5rem);
+  display: flex;
+  justify-content: flex-start;
 }
 
-.experience-nav-btn-right {
-  position: relative;
-}
-
-.experience-progress-ring {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-
-.experience-progress-bg {
-  stroke: rgba(0, 0, 0, 0.12);
-}
-
-.experience-progress-fill {
-  stroke: rgba(0, 0, 0, 0.35);
-  transition: stroke-dashoffset 0.1s linear;
-}
-
-.experience-nav-arrow {
-  position: relative;
-  z-index: 1;
-}
-
-.experience-counter {
-  font-size: clamp(1.15rem, 1.75vw, 1.35rem);
-  font-weight: 400; /* regular – counter */
-  color: #000;
-  min-width: 3.5rem;
-  text-align: center;
-}
-
-/* Right column – full-page-size card carousel, fade into left */
+/* Right column – card section, 1.5 cards visible; cards 20% bigger */
 .experience-cards-wrap {
   position: relative;
   overflow: hidden;
-  border-radius: 20px;
-  margin-left: -1rem;
-  padding-left: 1rem;
-  height: 100%;
-  min-height: 520px;
+  border-radius: clamp(12px, 3vw, 20px);
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  padding-top: clamp(1rem, 2.5vw, 2.5rem);
+  --card-gap: clamp(0.5rem, 1vw, 0.75rem);
+  --card-width: min(calc((100% - var(--card-gap)) / 1.25), 490px);
+  box-sizing: border-box;
 }
 
 .experience-cards-fade {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: clamp(80px, 8vw, 120px);
-  z-index: 2;
-  pointer-events: none;
-  background: linear-gradient(to right, #f0ebe3 0%, transparent 100%);
+  display: none;
 }
 
 .experience-cards-track {
   display: flex;
+  align-items: flex-start;
   gap: var(--card-gap);
-  height: 100%;
-  min-height: 520px;
+  height: auto;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateX(calc(var(--slide-index, 0) * (var(--card-width) + var(--card-gap)) * -1));
+  transform: translateX(
+    calc(var(--slide-index, 0) * (var(--card-width) + var(--card-gap)) * -1)
+  );
 }
 
 .experience-cards-track.enter {
@@ -285,18 +230,21 @@
 
 .experience-cards-track.exit {
   opacity: 0;
-  transform: translateY(-15px) translateX(calc(var(--slide-index, 0) * (var(--card-width) + var(--card-gap)) * -1)) !important;
+  transform: translateY(-12px)
+    translateX(
+      calc(var(--slide-index, 0) * (var(--card-width) + var(--card-gap)) * -1)
+    ) !important;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Individual card – 2 visible at once, 70% image / 30% text */
+/* Individual card – square, vertically slightly stretched (not horizontally stretched) */
 .experience-card {
   flex: 0 0 var(--card-width);
   width: var(--card-width);
   max-width: var(--card-width);
-  height: 100%;
-  min-height: 520px;
+  height: auto;
+  aspect-ratio: 1 / 1.2;
   background: #fff;
   border-radius: 20px;
   overflow: hidden;
@@ -310,11 +258,15 @@
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 }
 
+/* Image – 65% of card; more room below for full descriptions */
 .experience-card-image-wrap {
-  flex: 0 0 70%;
+  flex: 0 0 65%;
   min-height: 0;
   overflow: hidden;
-  background: #ddd;
+  background: #fff;
+  border-radius: 16px 16px 0 0;
+  margin: clamp(0.6rem, 1.2vw, 1rem);
+  margin-bottom: 0;
 }
 
 .experience-card-image {
@@ -322,74 +274,153 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 12px 12px 0 0;
 }
 
+/* Text section – 35% of card for full description visibility */
 .experience-card-content {
-  flex: 0 0 30%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: clamp(1.25rem, 2.5vw, 2rem);
+  flex: 0 0 35%;
   min-height: 0;
-  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.5rem, 2.5vw, 2.25rem);
-}
-
-.experience-card-text {
-  flex: 1;
-  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: stretch;
+  padding: clamp(0.9rem, 1.5vw, 1.25rem) clamp(1rem, 1.5vw, 1.35rem) clamp(1rem, 1.5vw, 1.35rem);
+  box-sizing: border-box;
+  overflow: visible;
 }
 
+/* Text block – fills space above Read More */
+.experience-card-text {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.6vw, 0.55rem);
+  margin-bottom: clamp(0.5rem, 0.8vw, 0.7rem);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Title – one line, bold uppercase */
 .experience-card-title {
-  font-size: clamp(1.35rem, 2.25vw, 1.85rem);
-  font-weight: 700; /* strong – card heading */
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  font-weight: 700;
+  font-style: normal;
   color: #000;
   margin: 0;
   padding: 0;
-  line-height: 1.25;
-  flex-shrink: 0;
+  line-height: 1.28;
+  flex: 0 0 auto;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* Description – fully visible; line-clamp 6 accommodates all lengths */
 .experience-card-description {
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-  font-weight: 300; /* thin – card body */
+  font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+  font-weight: 400;
   line-height: 1.5;
-  color: #000;
-  margin: 0.35rem 0 0;
-  flex: 1;
+  color: #4a4a4a;
+  margin: 0;
+  flex: 1 1 0;
   min-height: 0;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
+  width: 100%;
+  max-width: 100%;
 }
 
+/* Read More – generous padding, larger touch target */
 .experience-card-cta {
   flex-shrink: 0;
-  display: inline-block;
-  padding: clamp(0.75rem, 1.25vw, 1rem) clamp(1.25rem, 2vw, 1.5rem);
-  font-size: clamp(1rem, 1.35vw, 1.2rem);
-  font-weight: 600; /* semi-bold – CTA */
+  align-self: flex-end;
+  margin-top: 0;
+  margin-right: 0.2rem;
+  padding: clamp(0.5rem, 0.9vw, 0.65rem) clamp(1rem, 1.2vw, 1.15rem);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 600;
   color: #000;
-  background: transparent;
+  background: #fff;
   border: 1.5px solid rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  border-radius: 999px;
   text-decoration: none;
   text-align: center;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .experience-card-cta:hover {
-  background: rgba(0, 0, 0, 0.06);
-  border-color: rgba(0, 0, 0, 0.4);
+  background: #194236;
+  color: #fff;
+  border-color: #194236;
+}
+
+/* Section title – full width with safe padding, no horizontal overflow */
+.experience-section-title {
+  width: 100%;
+  max-width: 100vw;
+  margin-left: 0;
+  padding: clamp(1.5rem, 3vw, 3.5rem) clamp(1rem, 4vw, 3rem);
+  box-sizing: border-box;
+  font-size: clamp(1.75rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #000;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+@media (max-width: 900px) {
+  .experience-cards-wrap {
+    --card-width: min(calc(100% - var(--card-gap)), 420px);
+  }
 }
 
 @media (max-width: 500px) {
   .experience-card-content {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .experience-left {
+    padding-left: clamp(1rem, 3vw, 2.25rem);
+    padding-right: clamp(1rem, 3vw, 2.25rem);
+  }
+
+  .experience-section-title {
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .experience-card-cta {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .experience-tab {
+    font-size: 0.65rem;
+    padding: 0.45rem 0.6rem;
+  }
+
+  .experience-title {
+    font-size: clamp(1.15rem, 5vw, 1.5rem);
+  }
+
+  .experience-description {
+    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
   }
 }

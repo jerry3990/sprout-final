@@ -1,0 +1,195 @@
+/* ========================================
+   NAV CONTROL – pill outline, progress on border, SVG arrows
+   ======================================== */
+
+.nav-control {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 32px);
+  position: relative;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/* Progress text – serif, scales with viewport */
+.nav-progress {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #1a1a1a;
+  flex-shrink: 0;
+}
+
+.nav-progress .current,
+.nav-progress .total {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Buttons – pill scales down on small screens, min touch target */
+.nav-btn {
+  width: clamp(100px, 22vw, 130px);
+  height: clamp(48px, 10vw, 58px);
+  min-width: 100px;
+  min-height: 48px;
+  border-radius: 999px;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  transition: background 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 150ms ease-out;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-btn:focus {
+  outline: none;
+}
+
+.nav-btn:focus-visible {
+  outline: 2px solid #194236;
+  outline-offset: 2px;
+}
+
+/* SVG pill overlay – covers entire button */
+.nav-btn-pill-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.nav-btn-pill-path {
+  transition: stroke 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-btn-pill-path-prev {
+  stroke: #1a1a1a;
+}
+
+.nav-btn.prev.disabled .nav-btn-pill-path-prev {
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn-pill-path-next {
+  stroke: #1a1a1a;
+}
+
+.nav-btn.next.disabled .nav-btn-pill-path-next {
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+/* No transition on stroke-dashoffset so border fills smoothly 0→100% over timer */
+.nav-btn-pill-path-next {
+  transition: stroke 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Inner content – flex center for arrow */
+.nav-btn-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.arrow-icon {
+  flex-shrink: 0;
+  width: clamp(18px, 3vw, 22px);
+  height: clamp(18px, 3vw, 22px);
+  max-width: 22px;
+  max-height: 22px;
+  object-fit: contain;
+  transition: filter 400ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.arrow-icon.left {
+  transform: scaleX(-1);
+}
+
+/* Active: hover – arrow turns white */
+.nav-btn.prev.active:hover,
+.nav-btn.next.active:hover {
+  background: #194236;
+}
+
+.nav-btn.prev.active:hover .nav-btn-pill-path-prev,
+.nav-btn.next.active:hover .nav-btn-pill-path-next {
+  stroke: #194236;
+}
+
+.nav-btn.prev.active:hover .arrow-icon,
+.nav-btn.next.active:hover .arrow-icon {
+  filter: brightness(0) invert(1);
+}
+
+.nav-btn.prev.active:hover .arrow-icon.left {
+  transform: scaleX(-1) translateX(-4px);
+}
+
+.nav-btn.next.active:hover .arrow-icon.right {
+  transform: translateX(4px);
+}
+
+/* Disabled */
+.nav-btn.disabled {
+  pointer-events: none;
+  cursor: default;
+  background: transparent;
+}
+
+.nav-btn.prev.disabled .arrow-icon,
+.nav-btn.next.disabled .arrow-icon {
+  opacity: 0.35;
+}
+
+/* Press */
+.nav-btn.pressed {
+  transform: scale(0.96);
+}
+
+.nav-btn.pressed .arrow-icon {
+  transition-duration: 150ms;
+}
+
+/* Small screens – compact nav control */
+@media (max-width: 480px) {
+  .nav-control {
+    gap: clamp(12px, 4vw, 20px);
+  }
+
+  .nav-btn {
+    width: clamp(88px, 28vw, 110px);
+    height: 44px;
+    min-width: 88px;
+    min-height: 44px;
+  }
+
+  .nav-progress {
+    font-size: clamp(0.9rem, 4vw, 1.25rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-control {
+    gap: 10px;
+  }
+
+  .nav-btn {
+    min-width: 80px;
+    width: 80px;
+    height: 42px;
+    min-height: 42px;
+  }
+}
