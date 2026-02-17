@@ -11,12 +11,12 @@
   min-width: 0;
 }
 
-/* Progress text – serif, scales with viewport */
+/* Progress text – match site typography (Montserrat) */
 .nav-progress {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
-  font-weight: 400;
-  letter-spacing: 0.5px;
+  font-family: inherit;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
   color: #1a1a1a;
   flex-shrink: 0;
 }
@@ -26,12 +26,12 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Buttons – pill scales down on small screens, min touch target */
+/* Buttons – larger pills, left bottom placement, min touch target */
 .nav-btn {
-  width: clamp(100px, 22vw, 130px);
-  height: clamp(48px, 10vw, 58px);
-  min-width: 100px;
-  min-height: 48px;
+  width: clamp(120px, 26vw, 155px);
+  height: clamp(54px, 11vw, 66px);
+  min-width: 120px;
+  min-height: 54px;
   border-radius: 999px;
   background: transparent;
   position: relative;
@@ -104,10 +104,10 @@
 
 .arrow-icon {
   flex-shrink: 0;
-  width: clamp(18px, 3vw, 22px);
-  height: clamp(18px, 3vw, 22px);
-  max-width: 22px;
-  max-height: 22px;
+  width: clamp(24px, 4vw, 30px);
+  height: clamp(24px, 4vw, 30px);
+  max-width: 30px;
+  max-height: 30px;
   object-fit: contain;
   transition: filter 400ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 300ms cubic-bezier(0.22, 1, 0.36, 1),

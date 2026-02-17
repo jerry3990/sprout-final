@@ -77,12 +77,12 @@ const Navbar = () => {
                       src="/logoblank.png"
                       alt="Sprout"
                       className="logo-img"
-                      width={62}
-                      height={62}
+                      width={48}
+                      height={48}
                       onError={() => setLogoError(true)}
                     />
                   ) : (
-                    <svg width="62" height="62" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-fallback-svg">
+                    <svg width="48" height="48" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-fallback-svg">
                       <circle cx="25" cy="25" r="24" stroke="#f5f5f5" strokeWidth="1.5" />
                       <path d="M25 8L35 18L30 25L35 32L25 42L15 32L20 25L15 18L25 8Z" fill="#f5f5f5" />
                     </svg>

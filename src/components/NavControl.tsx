@@ -73,8 +73,8 @@ export default function NavControl({
             src="/right-arrow.png"
             alt=""
             className="arrow-icon left"
-            width={22}
-            height={22}
+            width={30}
+            height={30}
             aria-hidden
           />
         </span>
@@ -118,8 +118,8 @@ export default function NavControl({
             src="/right-arrow.png"
             alt=""
             className="arrow-icon right"
-            width={22}
-            height={22}
+            width={30}
+            height={30}
             aria-hidden
           />
         </span>
