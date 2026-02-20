@@ -11,6 +11,7 @@
   --accent-color: #f5f5f5;
   --accent-hover: #ffffff;
   --nav-active-bg: #1c804f; /* active pill */
+  --nav-hover-olive: #122b22; /* button/link hover olive */
   --gradient-start: #6b8e5f;
   --gradient-end: #5a7549;
 }
@@ -127,6 +128,7 @@
 
 .nav-link.active:hover {
   color: #ffffff;
+  background: var(--nav-hover-olive);
 }
 
 /* Underline animation - hide when active (pill is the indicator) */

@@ -6,7 +6,7 @@
 .experience-categories {
   --card-gap: clamp(1.5rem, 2.5vw, 2rem);
   --card-width: calc((100% - var(--card-gap)) / 2);
-  background: #f0ebe3;
+  background: #faf8f2;
   padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 5vw, 5rem)
     clamp(1.5rem, 4vw, 4rem);
   min-height: 100vh;
@@ -101,9 +101,9 @@
 }
 
 .experience-tab:hover {
-  background: #194236;
+  background: #122b22;
   color: #fff;
-  border-color: #194236;
+  border-color: #122b22;
 }
 
 .experience-tab.active {
@@ -113,17 +113,23 @@
   font-weight: 700;
 }
 
-/* Left column – title, description, nav; balanced spacing on both sides */
+/* Left column – title, description, nav at bottom left; balanced spacing */
 .experience-left {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   min-height: 0;
   min-width: 0;
   position: relative;
   z-index: 3;
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.25rem)
+    clamp(1.5rem, 3vw, 2.5rem);
   height: 100%;
   box-sizing: border-box;
+}
+
+.experience-left .experience-text {
+  width: 100%;
 }
 
 /* Left column text block – title + description */
@@ -178,13 +184,37 @@
   letter-spacing: 0.01em;
 }
 
-/* Nav at left bottom of left column */
+/* Nav at bottom left of left column – 50% smaller, bottom-left aligned */
 .experience-nav-wrap {
   margin-top: auto;
   padding-top: clamp(2rem, 3vw, 2.5rem);
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+  align-self: flex-start;
+}
+
+/* Experience section: nav control 50% smaller */
+.experience-nav-wrap .nav-control {
+  gap: clamp(8px, 1.5vw, 16px);
+}
+
+.experience-nav-wrap .nav-progress {
+  font-size: clamp(0.65rem, 1.25vw, 0.85rem);
+}
+
+.experience-nav-wrap .nav-btn {
+  width: clamp(60px, 13vw, 78px);
+  height: clamp(27px, 5.5vw, 33px);
+  min-width: 60px;
+  min-height: 27px;
+}
+
+.experience-nav-wrap .arrow-icon {
+  width: clamp(12px, 2vw, 15px);
+  height: clamp(12px, 2vw, 15px);
+  max-width: 15px;
+  max-height: 15px;
 }
 
 /* Right column – card section, 1.5 cards visible; cards 20% bigger */
@@ -285,7 +315,8 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: clamp(0.9rem, 1.5vw, 1.25rem) clamp(1rem, 1.5vw, 1.35rem) clamp(1rem, 1.5vw, 1.35rem);
+  padding: clamp(0.9rem, 1.5vw, 1.25rem) clamp(1rem, 1.5vw, 1.35rem)
+    clamp(1rem, 1.5vw, 1.35rem);
   box-sizing: border-box;
   overflow: visible;
 }
@@ -357,9 +388,9 @@
 }
 
 .experience-card-cta:hover {
-  background: #194236;
+  background: #122b22;
   color: #fff;
-  border-color: #194236;
+  border-color: #122b22;
 }
 
 /* Section title – full width with safe padding, more space above */

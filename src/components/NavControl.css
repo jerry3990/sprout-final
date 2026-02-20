@@ -52,7 +52,7 @@
 }
 
 .nav-btn:focus-visible {
-  outline: 2px solid #194236;
+  outline: 2px solid #122b22;
   outline-offset: 2px;
 }
 
@@ -121,12 +121,12 @@
 /* Active: hover – arrow turns white */
 .nav-btn.prev.active:hover,
 .nav-btn.next.active:hover {
-  background: #194236;
+  background: #122b22;
 }
 
 .nav-btn.prev.active:hover .nav-btn-pill-path-prev,
 .nav-btn.next.active:hover .nav-btn-pill-path-next {
-  stroke: #194236;
+  stroke: #122b22;
 }
 
 .nav-btn.prev.active:hover .arrow-icon,

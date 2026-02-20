@@ -119,7 +119,8 @@ function App() {
               <span className="hero-title-line2">THAT LASTS</span>
             </h1>
             <a href="#experience" className="hero-cta">
-              start adventure
+
+              START ADVENTURE
             </a>
           </div>
           <div className="hero-controls">
