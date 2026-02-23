@@ -1,6 +1,10 @@
 import { useRef, useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/navbar'
+import HeroSection from './components/HeroSection'
 import ExperienceCategories from './components/ExperienceCategories'
+import ExperiencePage from './pages/ExperiencePage'
+import SiteFooter from './components/SiteFooter'
 import './App.css'
 
 /* Mission items – image, text, and optional audio per mission (Vantara-style) */
@@ -46,28 +50,10 @@ const MISSION_ITEMS: Array<{
     },
   ]
 
-/* Hero video sources – all loop on the homepage; primary used for hero background */
-const HERO_VIDEOS = [
-  '/video/12423791_3840_2160_25fps.mp4',
-  '/video/15162500_3840_2160_30fps.mp4',
-  '/video/6582341-uhd_3840_2160_30fps.mp4',
-] as const
-
 function App() {
-  const videoRef = useRef<HTMLVideoElement>(null)
   const missionAudioRef = useRef<HTMLAudioElement>(null)
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [isMuted, setIsMuted] = useState(true)
   const [activeMission, setActiveMission] = useState(0)
   const [missionMuted, setMissionMuted] = useState(true)
-  const [footerLogoError, setFooterLogoError] = useState(false)
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    if (isPlaying) video.play().catch(() => { })
-    else video.pause()
-  }, [isPlaying])
 
   useEffect(() => {
     const audio = missionAudioRef.current
@@ -90,77 +76,23 @@ function App() {
     audio.muted = missionMuted
   }, [missionMuted])
 
-  const togglePlayPause = () => setIsPlaying((p) => !p)
-  const toggleMute = () => setIsMuted((m) => !m)
   const toggleMissionMute = () => setMissionMuted((m) => !m)
 
   return (
-    <>
-      <Navbar />
-      <main>
-        {/* Hero section – full-viewport video with left text, right controls */}
-        <section id="home" className="hero">
-          <div className="hero-video-wrap">
-            <video
-              ref={videoRef}
-              className="hero-video"
-              src={HERO_VIDEOS[0]}
-              autoPlay
-              muted={isMuted}
-              loop
-              playsInline
-              aria-hidden
-            />
-          </div>
-          <div className="hero-overlay" aria-hidden />
-          <div className="hero-content">
-            <h1 className="hero-title">
-              <span className="hero-title-line1">CRAFT MOMENTS</span>
-              <span className="hero-title-line2">THAT LASTS</span>
-            </h1>
-            <a href="#experience" className="hero-cta">
-
-              START ADVENTURE
-            </a>
-          </div>
-          <div className="hero-controls">
-            <button
-              type="button"
-              className="hero-control-btn"
-              onClick={togglePlayPause}
-              aria-label={isPlaying ? 'Pause' : 'Play'}
-            >
-              {isPlaying ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                  <rect x="6" y="4" width="4" height="16" />
-                  <rect x="14" y="4" width="4" height="16" />
-                </svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-            </button>
-            <button
-              type="button"
-              className="hero-control-btn"
-              onClick={toggleMute}
-              aria-label={isMuted ? 'Unmute' : 'Mute'}
-            >
-              {isMuted ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                  <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
-                </svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </section>
-
-        <ExperienceCategories />
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/experience"
+          element={<ExperiencePage />}
+        />
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              <main>
+                <HeroSection id="home" ctaHref="#experience" />
+                <ExperienceCategories />
 
         {/* Testimonial – white block, green stars, centered quote */}
         <section className="testimonial-section">
@@ -386,87 +318,14 @@ function App() {
         </section>
 
         {/* Footer – dark green, logo, contact, Services, Company, copyright bar */}
-        <footer className="site-footer">
-          <div className="site-footer-container">
-            <div className="site-footer-brand">
-              <div className="site-footer-logo">
-                <div className="site-footer-logo-icon">
-                  {!footerLogoError ? (
-                    <img
-                      src="/logoblank.png"
-                      alt=""
-                      className="site-footer-logo-img"
-                      width={80}
-                      height={80}
-                      onError={() => setFooterLogoError(true)}
-                    />
-                  ) : (
-                    <svg width="80" height="80" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                      <circle cx="25" cy="25" r="24" stroke="#E0E0E0" strokeWidth="1.5" />
-                      <path d="M25 8L35 18L30 25L35 32L25 42L15 32L20 25L15 18L25 8Z" fill="#E0E0E0" />
-                    </svg>
-                  )}
-                </div>
-                <span className="site-footer-name">The Sprout</span>
-              </div>
-              <p className="site-footer-desc">
-                Creating meaningful, human-centered experiences that make people feel connected, valued, and alive.
-              </p>
-              <div className="site-footer-contact">
-                <a href="mailto:hello@thesprout.com" className="site-footer-link">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                    <polyline points="22,6 12,13 2,6" />
-                  </svg>
-                  hello@thesprout.com
-                </a>
-                <a href="tel:+5551234567" className="site-footer-link">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                  (555) 123-4567
-                </a>
-                <span className="site-footer-link site-footer-address">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  Your City, State
-                </span>
-              </div>
-            </div>
-            <div className="site-footer-col">
-              <h3 className="site-footer-heading">Services</h3>
-              <ul className="site-footer-links">
-                <li><a href="#experience">Campus Events</a></li>
-                <li><a href="#experience">HR & Team Building</a></li>
-                <li><a href="#experience">Corporate Activations</a></li>
-                <li><a href="#experience">Adventure Experiences</a></li>
-                <li><a href="#experience">Community Engagement</a></li>
-                <li><a href="#experience">Trade Shows</a></li>
-              </ul>
-            </div>
-            <div className="site-footer-col">
-              <h3 className="site-footer-heading">Company</h3>
-              <ul className="site-footer-links">
-                <li><a href="#process">Our Process</a></li>
-                <li><a href="#mission">Meet Hope</a></li>
-                <li><a href="#story">About Us</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="site-footer-bottom">
-            <span className="site-footer-copyright">© 2025 The Sprout. All rights reserved.</span>
-            <div className="site-footer-legal">
-              <a href="#privacy">Privacy Policy</a>
-              <a href="#terms">Terms of Service</a>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
 
       </main>
-    </>
+            </>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

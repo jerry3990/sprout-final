@@ -1,0 +1,429 @@
+/* Experience detail section – dark green background, tabs, two-column, media card + CTA overlay, pagination (match screenshot) */
+
+.experience-detail {
+  background: #19231f;
+  color: #fff;
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+  min-height: 80vh;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.experience-detail-fullscreen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: clamp(1.25rem, 2.5vh, 2rem) clamp(1rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-detail-fullscreen .experience-detail-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.experience-detail-fullscreen .experience-detail-content {
+  flex: 1;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.experience-detail-inner {
+  max-width: min(1400px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* Floating category navbar – sticky pill bar (like homepage navbar) */
+.experience-detail-floating-nav {
+  position: sticky;
+  top: clamp(0.75rem, 2vw, 1.25rem);
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  margin-bottom: clamp(1rem, 2vh, 2rem);
+}
+
+.experience-detail-floating-nav .experience-detail-tabs {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: clamp(0.35rem, 0.8vw, 0.5rem);
+  padding: clamp(0.35rem, 0.6vw, 0.5rem) clamp(0.75rem, 1.5vw, 1rem);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.experience-detail-tab {
+  padding: clamp(0.5rem, 1vw, 0.7rem) clamp(0.9rem, 1.4vw, 1.2rem);
+  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+}
+
+.experience-detail-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.experience-detail-tab.active {
+  background: #2d5a4a;
+  color: #fff;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .experience-detail-floating-nav .experience-detail-tabs {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    max-width: calc(100vw - 2rem);
+  }
+  .experience-detail-floating-nav .experience-detail-tabs::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Two-column layout */
+.experience-detail-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 900px) {
+  .experience-detail-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left column – title, paragraphs, feature boxes */
+.experience-detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  min-height: 0;
+}
+
+.experience-detail-text-wrapper {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-detail-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.experience-detail-text-block.experience-detail-text-exit {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  pointer-events: none;
+  animation: experience-detail-content-exit 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes experience-detail-content-exit {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+.experience-detail-text-block.experience-detail-text-current {
+  flex: 1;
+  min-height: 0;
+}
+
+.experience-detail-text-block.experience-detail-text-current.experience-detail-text-enter {
+  animation: experience-detail-content-enter 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes experience-detail-content-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* NavControl – same style as homepage experience section, themed for dark background (white strokes/text) */
+.experience-detail-nav-wrap .nav-control {
+  gap: clamp(8px, 1.5vw, 16px);
+}
+
+.experience-detail-nav-wrap .nav-progress {
+  font-size: clamp(0.65rem, 1.25vw, 0.85rem);
+  font-weight: 600;
+  color: #fff;
+}
+
+.experience-detail-nav-wrap .nav-btn {
+  width: clamp(60px, 13vw, 78px);
+  height: clamp(27px, 5.5vw, 33px);
+  min-width: 60px;
+  min-height: 27px;
+}
+
+.experience-detail-nav-wrap .nav-btn-pill-path-prev,
+.experience-detail-nav-wrap .nav-btn-pill-path-next {
+  stroke: rgba(255, 255, 255, 0.9);
+}
+
+.experience-detail-nav-wrap .nav-btn.prev.disabled .nav-btn-pill-path-prev,
+.experience-detail-nav-wrap .nav-btn.next.disabled .nav-btn-pill-path-next {
+  stroke: rgba(255, 255, 255, 0.25);
+}
+
+.experience-detail-nav-wrap .nav-btn.prev.active:hover,
+.experience-detail-nav-wrap .nav-btn.next.active:hover {
+  background: #2d5a4a;
+}
+
+.experience-detail-nav-wrap .nav-btn.prev.active:hover .nav-btn-pill-path-prev,
+.experience-detail-nav-wrap .nav-btn.next.active:hover .nav-btn-pill-path-next {
+  stroke: #2d5a4a;
+}
+
+.experience-detail-nav-wrap .arrow-icon {
+  width: clamp(12px, 2vw, 15px);
+  height: clamp(12px, 2vw, 15px);
+  max-width: 15px;
+  max-height: 15px;
+  filter: brightness(0) invert(1);
+}
+
+.experience-detail-nav-wrap .nav-btn.prev.disabled .arrow-icon,
+.experience-detail-nav-wrap .nav-btn.next.disabled .arrow-icon {
+  opacity: 0.4;
+}
+
+.experience-detail-nav-wrap .nav-btn:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.8);
+}
+
+.experience-detail-title {
+  font-size: clamp(1.85rem, 4.5vw, 3.25rem);
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.experience-detail-fullscreen .experience-detail-title {
+  font-size: clamp(2rem, 5vh, 4rem);
+  line-height: 1.15;
+}
+
+.experience-detail-p1,
+.experience-detail-p2 {
+  font-size: clamp(1.1rem, 1.85vw, 1.4rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: #fff;
+  margin: 0;
+}
+
+.experience-detail-fullscreen .experience-detail-p1,
+.experience-detail-fullscreen .experience-detail-p2 {
+  font-size: clamp(1.1rem, 2.2vh, 1.75rem);
+  line-height: 1.55;
+}
+
+.experience-detail-p2 {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Feature boxes – dark rounded rectangles */
+.experience-detail-boxes {
+  display: flex;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.experience-detail-box {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  padding: clamp(0.9rem, 1.4vw, 1.15rem) clamp(1.15rem, 1.6vw, 1.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 150px;
+}
+
+.experience-detail-box-label {
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.experience-detail-box-value {
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.35;
+}
+
+.experience-detail-fullscreen .experience-detail-box {
+  padding: clamp(1rem, 1.8vw, 1.4rem) clamp(1.25rem, 2vw, 1.6rem);
+  min-width: 160px;
+}
+
+.experience-detail-fullscreen .experience-detail-box-label {
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+}
+
+.experience-detail-fullscreen .experience-detail-box-value {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+/* Right column – large media card with play + CTA overlay */
+.experience-detail-right {
+  position: relative;
+  width: 100%;
+}
+
+.experience-detail-media-card {
+  position: relative;
+  width: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #0d1512;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.experience-detail-media-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.experience-detail-media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.experience-detail-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  pointer-events: none;
+}
+
+.experience-detail-play-overlay svg {
+  width: clamp(48px, 8vw, 64px);
+  height: clamp(48px, 8vw, 64px);
+  opacity: 0.95;
+}
+
+.experience-detail-fullscreen .experience-detail-play-overlay svg {
+  width: clamp(52px, 9vw, 72px);
+  height: clamp(52px, 9vw, 72px);
+}
+
+/* CTA overlay – bottom-right, light grey box */
+.experience-detail-cta-overlay {
+  position: absolute;
+  bottom: clamp(1rem, 2vw, 1.5rem);
+  right: clamp(1rem, 2vw, 1.5rem);
+  max-width: min(320px, calc(100% - 2rem));
+  background: rgba(220, 220, 220, 0.95);
+  border-radius: 12px;
+  padding: clamp(0.9rem, 1.5vw, 1.2rem) clamp(1rem, 1.5vw, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.experience-detail-cta-text {
+  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+  font-weight: 500;
+  color: #2a2a2a;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.experience-detail-fullscreen .experience-detail-cta-text {
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+}
+
+.experience-detail-cta-btn {
+  align-self: flex-end;
+  padding: clamp(0.5rem, 0.8vw, 0.65rem) clamp(1rem, 1.2vw, 1.2rem);
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+  font-weight: 600;
+  color: #fff;
+  background: #000;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.experience-detail-fullscreen .experience-detail-cta-btn {
+  padding: clamp(0.55rem, 1vw, 0.75rem) clamp(1.1rem, 1.4vw, 1.35rem);
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+}
+
+.experience-detail-cta-btn:hover {
+  background: #1a1a1a;
+}
+
+/* Nav below the photo – reference style with top padding */
+.experience-detail-right .experience-detail-nav-wrap {
+  padding-top: clamp(1.25rem, 2.5vw, 2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

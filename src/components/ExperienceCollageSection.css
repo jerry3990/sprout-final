@@ -1,0 +1,174 @@
+/* Premium floating photo-collage – masonry, deep green, soft shadows, parallax */
+
+.experience-collage {
+  background: #0f1f1a;
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 8vw, 5rem);
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.experience-collage-inner {
+  max-width: min(1400px, 100%);
+  margin: 0 auto;
+}
+
+/* Masonry via CSS columns – organic staggered flow */
+.experience-collage-masonry {
+  column-gap: clamp(24px, 3vw, 48px);
+  row-gap: 0;
+  column-fill: balance;
+}
+
+/* Mobile: 1–2 columns */
+.experience-collage-masonry {
+  column-count: 1;
+  padding: 0 0.5rem;
+}
+
+@media (min-width: 480px) {
+  .experience-collage-masonry {
+    column-count: 2;
+  }
+}
+
+/* Tablet: 2–3 columns */
+@media (min-width: 768px) {
+  .experience-collage-masonry {
+    column-count: 3;
+    column-gap: 36px;
+  }
+}
+
+/* Desktop: 4–5 columns */
+@media (min-width: 1024px) {
+  .experience-collage-masonry {
+    column-count: 4;
+    column-gap: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .experience-collage-masonry {
+    column-count: 5;
+    column-gap: 48px;
+  }
+}
+
+/* Tile – keep together in columns, vertical spacing */
+.experience-collage-item {
+  break-inside: avoid;
+  margin-bottom: clamp(24px, 3vw, 48px);
+  border-radius: 28px;
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Soft floating shadow: blur 40–60px, opacity 20–30% */
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.22), 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+@media (min-width: 768px) {
+  .experience-collage-item {
+    border-radius: 32px;
+    box-shadow: 0 28px 56px rgba(0, 0, 0, 0.25), 0 14px 32px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Staggered fade-in on load */
+.experience-collage-item {
+  animation: experience-collage-fade-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes experience-collage-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Parallax is applied via inline transform; animation only fades in. */
+.experience-collage-item {
+  animation-fill-mode: forwards;
+}
+
+/* Inner wrapper for hover lift (so parallax + hover work together) */
+.experience-collage-item-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experience-collage-item:hover .experience-collage-item-inner {
+  transform: translateY(-6px) scale(1.02);
+}
+
+.experience-collage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  vertical-align: middle;
+}
+
+/* Variable heights for organic masonry – no equal tiles */
+.experience-collage-item--short {
+  min-height: 180px;
+}
+.experience-collage-item--short .experience-collage-img {
+  aspect-ratio: 4 / 3;
+  min-height: 180px;
+  object-fit: cover;
+}
+
+.experience-collage-item--square .experience-collage-img {
+  aspect-ratio: 1;
+  min-height: 220px;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .experience-collage-item--square .experience-collage-img {
+    min-height: 260px;
+  }
+}
+
+.experience-collage-item--tall .experience-collage-img {
+  aspect-ratio: 3 / 4;
+  min-height: 280px;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .experience-collage-item--tall .experience-collage-img {
+    min-height: 320px;
+  }
+}
+
+.experience-collage-item--wide .experience-collage-img {
+  aspect-ratio: 16 / 10;
+  min-height: 200px;
+  object-fit: cover;
+}
+
+@media (min-width: 768px) {
+  .experience-collage-item--wide .experience-collage-img {
+    min-height: 240px;
+  }
+}
+
+/* Slight vertical offset for first items in columns (organic feel) – optional nudge */
+@media (min-width: 1024px) {
+  .experience-collage-item:nth-child(3n + 1) {
+    margin-top: 0.5rem;
+  }
+  .experience-collage-item:nth-child(3n + 2) {
+    margin-top: 1.5rem;
+  }
+  .experience-collage-item:nth-child(3n) {
+    margin-top: 0.25rem;
+  }
+}

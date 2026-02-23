@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './navbar.css';
 
 const Navbar = () => {
+  const { pathname } = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('home');
   const [logoError, setLogoError] = useState(false);
   const lastScrollY = useRef(0);
+
+  const activeLink = pathname === '/experience' ? 'experience' : 'home';
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
@@ -54,22 +57,33 @@ const Navbar = () => {
         <div className="navbar-container">
           {/* Left Navigation */}
           <div className="nav-section nav-left">
-            {leftItems.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
-                onClick={() => setActiveLink(item.id)}
-              >
-                {item.label}
-                <span className="underline"></span>
-              </a>
-            ))}
+            {leftItems.map((item) => {
+              const isExperience = item.id === 'experience';
+              return isExperience ? (
+                <Link
+                  key={item.id}
+                  to="/experience"
+                  className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
+                >
+                  {item.label}
+                  <span className="underline"></span>
+                </Link>
+              ) : (
+                <Link
+                  key={item.id}
+                  to="/"
+                  className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
+                >
+                  {item.label}
+                  <span className="underline"></span>
+                </Link>
+              );
+            })}
           </div>
 
           {/* Center Logo - properly centered in pill */}
           <div className="nav-logo-section">
-            <a href="#home" className="logo-wrapper" onClick={() => setActiveLink('home')}>
+            <Link to="/" className="logo-wrapper">
               <div className="logo-image-container">
                 <div className="logo-image">
                   {!logoError ? (
@@ -89,7 +103,7 @@ const Navbar = () => {
                   )}
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Right Navigation */}
@@ -97,9 +111,8 @@ const Navbar = () => {
             {rightItems.map((item) => (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={`/#${item.id}`}
                 className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
-                onClick={() => setActiveLink(item.id)}
               >
                 {item.label}
                 <span className="underline"></span>
@@ -146,20 +159,31 @@ const Navbar = () => {
             </div>
 
             <ul className="mobile-nav-list">
-              {navItems.map((item, index) => (
-                <li key={item.id} style={{ '--stagger-delay': `${index * 0.05}s` } as React.CSSProperties}>
-                  <a
-                    href={`#${item.id}`}
-                    className={`mobile-nav-link ${activeLink === item.id ? 'active' : ''}`}
-                    onClick={() => {
-                      setActiveLink(item.id);
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
+              {navItems.map((item, index) => {
+                const href = item.id === 'experience' ? '/experience' : item.id === 'home' ? '/' : `/#${item.id}`;
+                const isLink = item.id === 'experience' || item.id === 'home';
+                return (
+                  <li key={item.id} style={{ '--stagger-delay': `${index * 0.05}s` } as React.CSSProperties}>
+                    {isLink ? (
+                      <Link
+                        to={href}
+                        className={`mobile-nav-link ${activeLink === item.id ? 'active' : ''}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={href}
+                        className={`mobile-nav-link ${activeLink === item.id ? 'active' : ''}`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
