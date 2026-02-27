@@ -69,8 +69,8 @@ export default function SiteFooter() {
           <ul className="site-footer-links">
             <li><a href="/#process">Our Process</a></li>
             <li><a href="/#mission">Meet Hope</a></li>
-            <li><a href="/#story">About Us</a></li>
-            <li><a href="/#contact">Contact</a></li>
+            <li><a href="/#story">Our Story</a></li>
+            <li><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
       </div>

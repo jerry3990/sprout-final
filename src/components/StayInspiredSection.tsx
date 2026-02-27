@@ -23,7 +23,7 @@ export default function StayInspiredSection() {
             STAY INSPIRED
           </h2>
           <p className="stay-inspired-subtitle">
-            Occasional stories and ideas—curated for those who value intention over inbox noise.
+            Occasional stories, ideas, and moments that show how meaningful experiences come to life.
           </p>
 
           <form

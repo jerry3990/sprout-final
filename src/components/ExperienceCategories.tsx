@@ -230,7 +230,7 @@ export default function ExperienceCategories() {
                       <h3 className="experience-card-title">{card.title}</h3>
                       <p className="experience-card-description">{card.description}</p>
                     </div>
-                    <a href="#contact" className="experience-card-cta">
+                    <a href="/contact" className="experience-card-cta">
                       Read More
                     </a>
                   </div>

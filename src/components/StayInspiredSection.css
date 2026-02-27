@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1rem, 3vw, 2rem);
   box-sizing: border-box;
   background: #fff;
 }
@@ -14,9 +14,9 @@
 .stay-inspired-container {
   position: relative;
   width: 100%;
-  max-width: 80vw;
-  min-height: min(59vh, 500px);
-  min-height: min(59dvh, 500px);
+  max-width: 80%;
+  min-height: min(74vh, 720px);
+  min-height: min(74dvh, 720px);
   margin: 0 auto;
   background: #0f1f1a;
   border-radius: 56px;
@@ -51,16 +51,16 @@
   }
 }
 
-/* Content – left-aligned, generous spacing; vertically smaller to match card */
+/* Content – left-aligned, generous spacing; fills card height */
 .stay-inspired-content {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: min(59vh, 500px);
-  min-height: min(59dvh, 500px);
-  padding: clamp(2rem, 5vw, 3.5rem) clamp(2rem, 5vw, 4rem);
+  min-height: min(74vh, 720px);
+  min-height: min(74dvh, 720px);
+  padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 5rem);
   max-width: 56%;
 }
 
@@ -184,13 +184,17 @@
   max-width: 360px;
 }
 
-/* Responsive: stack and shrink ornament; card 30% shorter vertically */
+/* Responsive: stack ornament; card 20% smaller than before */
 @media (max-width: 767px) {
   .stay-inspired-container {
     border-radius: 40px;
-    max-width: 88vw;
-    min-height: min(56vh, 450px);
-    min-height: min(56dvh, 450px);
+    max-width: 90%;
+    min-height: min(70vh, 560px);
+    min-height: min(70dvh, 560px);
+  }
+
+  .stay-inspired-content {
+    min-height: 0;
   }
 
   .stay-inspired-ornament {
@@ -206,13 +210,12 @@
 @media (max-width: 479px) {
   .stay-inspired-container {
     border-radius: 32px;
-    max-width: 92vw;
-    min-height: min(52vh, 400px);
-    min-height: min(52dvh, 400px);
+    min-height: min(68vh, 480px);
+    min-height: min(68dvh, 480px);
   }
 
   .stay-inspired-ornament {
-    height: 140px;
-    min-height: 140px;
+    height: 150px;
+    min-height: 150px;
   }
 }

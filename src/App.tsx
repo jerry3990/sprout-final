@@ -4,6 +4,8 @@ import Navbar from './components/navbar'
 import HeroSection from './components/HeroSection'
 import ExperienceCategories from './components/ExperienceCategories'
 import ExperiencePage from './pages/ExperiencePage'
+import HowItWorksPage from './pages/HowItWorksPage'
+import ContactPage from './pages/ContactPage'
 import SiteFooter from './components/SiteFooter'
 import './App.css'
 
@@ -84,6 +86,14 @@ function App() {
         <Route
           path="/experience"
           element={<ExperiencePage />}
+        />
+        <Route
+          path="/how-it-works"
+          element={<HowItWorksPage />}
+        />
+        <Route
+          path="/contact"
+          element={<ContactPage />}
         />
         <Route
           path="/"
@@ -264,8 +274,8 @@ function App() {
                   &ldquo;We create experiences that make people feel connected, valued, and alive.&rdquo;
                 </blockquote>
               </div>
-              <a href="#contact" className="our-story-link">
-                Learn More About Us <span className="our-story-link-arrow">→</span>
+              <a href="/contact" className="our-story-link">
+                Get In Touch With Us <span className="our-story-link-arrow">→</span>
               </a>
             </div>
             <div className="our-story-media">
@@ -309,7 +319,7 @@ function App() {
                 <p className="get-in-touch-text get-in-touch-text-second">
                   Get in touch and start a conversation—sometimes that's all it takes for something meaningful to grow.
                 </p>
-                <a href="#contact" className="get-in-touch-btn">
+                <a href="/contact" className="get-in-touch-btn">
                   START THE CONVERSATION →
                 </a>
               </div>

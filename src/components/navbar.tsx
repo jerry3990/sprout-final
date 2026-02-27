@@ -10,7 +10,14 @@ const Navbar = () => {
   const [logoError, setLogoError] = useState(false);
   const lastScrollY = useRef(0);
 
-  const activeLink = pathname === '/experience' ? 'experience' : 'home';
+  const activeLink =
+    pathname === '/experience'
+      ? 'experience'
+      : pathname === '/how-it-works'
+        ? 'story'
+        : pathname === '/contact'
+          ? 'contact'
+          : 'home';
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
@@ -40,7 +47,7 @@ const Navbar = () => {
   const navItems = [
     { id: 'home', label: 'Home', side: 'left' },
     { id: 'experience', label: 'Experience', side: 'left' },
-    { id: 'story', label: 'About', side: 'right' },
+    { id: 'story', label: 'How it works', side: 'right' },
     { id: 'contact', label: 'Contact Us', side: 'right' },
   ];
 
@@ -108,16 +115,36 @@ const Navbar = () => {
 
           {/* Right Navigation */}
           <div className="nav-section nav-right">
-            {rightItems.map((item) => (
-              <a
-                key={item.id}
-                href={`/#${item.id}`}
-                className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
-              >
-                {item.label}
-                <span className="underline"></span>
-              </a>
-            ))}
+            {rightItems.map((item) =>
+              item.id === 'story' ? (
+                <Link
+                  key={item.id}
+                  to="/how-it-works"
+                  className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
+                >
+                  {item.label}
+                  <span className="underline"></span>
+                </Link>
+              ) : item.id === 'contact' ? (
+                <Link
+                  key={item.id}
+                  to="/contact"
+                  className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
+                >
+                  {item.label}
+                  <span className="underline"></span>
+                </Link>
+              ) : (
+                <a
+                  key={item.id}
+                  href={`/#${item.id}`}
+                  className={`nav-link ${activeLink === item.id ? 'active' : ''}`}
+                >
+                  {item.label}
+                  <span className="underline"></span>
+                </a>
+              )
+            )}
           </div>
         </div>
 
@@ -160,8 +187,17 @@ const Navbar = () => {
 
             <ul className="mobile-nav-list">
               {navItems.map((item, index) => {
-                const href = item.id === 'experience' ? '/experience' : item.id === 'home' ? '/' : `/#${item.id}`;
-                const isLink = item.id === 'experience' || item.id === 'home';
+                const href =
+                  item.id === 'experience'
+                    ? '/experience'
+                    : item.id === 'home'
+                      ? '/'
+                      : item.id === 'story'
+                        ? '/how-it-works'
+                        : item.id === 'contact'
+                          ? '/contact'
+                          : `/#${item.id}`;
+                const isLink = item.id === 'experience' || item.id === 'home' || item.id === 'story' || item.id === 'contact';
                 return (
                   <li key={item.id} style={{ '--stagger-delay': `${index * 0.05}s` } as React.CSSProperties}>
                     {isLink ? (

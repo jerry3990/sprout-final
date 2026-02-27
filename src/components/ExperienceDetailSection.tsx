@@ -158,7 +158,7 @@ export default function ExperienceDetailSection() {
               </div>
               <div className="experience-detail-cta-overlay">
                 <p className="experience-detail-cta-text">{displaySlide.ctaOverlayText}</p>
-                <a href="/#contact" className="experience-detail-cta-btn">
+                <a href="/contact" className="experience-detail-cta-btn">
                   {displaySlide.ctaButtonText}
                 </a>
               </div>
