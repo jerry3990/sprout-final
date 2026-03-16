@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 import './NavControl.css'
 
 const PILL_PATH =
@@ -21,25 +21,11 @@ export default function NavControl({
   timerProgress,
 }: NavControlProps) {
   const pathRef = useRef<SVGPathElement>(null)
-  const [pathLength, setPathLength] = useState(0)
   const [isPrevPressed, setIsPrevPressed] = useState(false)
   const [isNextPressed, setIsNextPressed] = useState(false)
 
-  useEffect(() => {
-    if (pathRef.current) {
-      setPathLength(pathRef.current.getTotalLength())
-    }
-  }, [])
-
   const isFirst = currentIndex <= 0
   const isLast = currentIndex >= total - 1
-  const progress =
-    timerProgress !== undefined
-      ? timerProgress
-      : total > 0
-        ? (currentIndex + 1) / total
-        : 0
-  const strokeDashoffset = pathLength * (1 - progress)
 
   return (
     <div className="nav-control">
@@ -107,10 +93,6 @@ export default function NavControl({
             fill="none"
             strokeWidth="1.5"
             vectorEffect="non-scaling-stroke"
-            style={{
-              strokeDasharray: pathLength,
-              strokeDashoffset,
-            }}
           />
         </svg>
         <span className="nav-btn-inner">

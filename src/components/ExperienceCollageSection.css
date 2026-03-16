@@ -1,8 +1,9 @@
 /* Premium floating photo-collage – masonry, deep green, soft shadows, parallax */
 
 .experience-collage {
-  background: #0f1f1a;
-  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 8vw, 5rem);
+  background: #122b22;
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem)
+    clamp(3rem, 8vw, 5rem);
   box-sizing: border-box;
   min-height: 100vh;
 }
@@ -74,7 +75,8 @@
 
 /* Staggered fade-in on load */
 .experience-collage-item {
-  animation: experience-collage-fade-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: experience-collage-fade-in 0.75s cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
   opacity: 0;
 }
 

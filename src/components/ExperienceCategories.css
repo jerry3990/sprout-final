@@ -7,10 +7,9 @@
   --card-gap: clamp(1.5rem, 2.5vw, 2rem);
   --card-width: calc((100% - var(--card-gap)) / 2);
   background: #faf8f2;
-  padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 5vw, 5rem)
-    clamp(1.5rem, 4vw, 4rem);
-  min-height: 100vh;
-  min-height: 100dvh;
+  padding: clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 5vw, 5rem)
+    clamp(0.75rem, 2vw, 1.5rem);
+  min-height: auto;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -25,8 +24,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 0;
   box-sizing: border-box;
 }
 
@@ -53,7 +51,7 @@
 .experience-tabs-row {
   width: 100%;
   margin-top: 0;
-  margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+  margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 .experience-tabs {
@@ -113,7 +111,7 @@
   font-weight: 700;
 }
 
-/* Left column – title, description, nav at bottom left; balanced spacing */
+/* Left column – title, description, nav; start from same left as category tabs / nav buttons */
 .experience-left {
   display: flex;
   flex-direction: column;
@@ -122,8 +120,7 @@
   min-width: 0;
   position: relative;
   z-index: 3;
-  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.25rem)
-    clamp(1.5rem, 3vw, 2.5rem);
+  padding: clamp(0.75rem, 2vw, 1.5rem) clamp(1rem, 3vw, 1.5rem) clamp(0.75rem, 2vw, 1.5rem) 0;
   height: 100%;
   box-sizing: border-box;
 }
@@ -156,7 +153,7 @@
 }
 
 .experience-title {
-  font-size: clamp(1.35rem, 3vw, 2.5rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 700;
   color: #000;
   margin: 0 0 clamp(0.75rem, 1.5vw, 1.35rem);
@@ -173,7 +170,7 @@
 }
 
 .experience-description {
-  font-size: clamp(1.05rem, 1.75vw, 1.3rem);
+  font-size: clamp(1rem, 1.75vw, 1.125rem);
   font-weight: 400;
   line-height: 1.65;
   color: #1a1a1a;
@@ -187,34 +184,34 @@
 /* Nav at bottom left of left column – 50% smaller, bottom-left aligned */
 .experience-nav-wrap {
   margin-top: auto;
-  padding-top: clamp(2rem, 3vw, 2.5rem);
+  padding-top: clamp(1rem, 2vw, 1.5rem);
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
   align-self: flex-start;
 }
 
-/* Experience section: nav control 50% smaller */
+/* Experience section: nav buttons big and broad (reference style) */
 .experience-nav-wrap .nav-control {
-  gap: clamp(8px, 1.5vw, 16px);
+  gap: clamp(12px, 2vw, 24px);
 }
 
 .experience-nav-wrap .nav-progress {
-  font-size: clamp(0.65rem, 1.25vw, 0.85rem);
+  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
 }
 
 .experience-nav-wrap .nav-btn {
-  width: clamp(60px, 13vw, 78px);
-  height: clamp(27px, 5.5vw, 33px);
-  min-width: 60px;
-  min-height: 27px;
+  width: clamp(110px, 24vw, 150px);
+  height: clamp(48px, 10vw, 60px);
+  min-width: 110px;
+  min-height: 48px;
 }
 
 .experience-nav-wrap .arrow-icon {
-  width: clamp(12px, 2vw, 15px);
-  height: clamp(12px, 2vw, 15px);
-  max-width: 15px;
-  max-height: 15px;
+  width: clamp(20px, 3vw, 26px);
+  height: clamp(20px, 3vw, 26px);
+  max-width: 26px;
+  max-height: 26px;
 }
 
 /* Right column – card section, 1.5 cards visible; cards 20% bigger */
@@ -225,7 +222,7 @@
   width: 100%;
   max-width: 100%;
   height: auto;
-  padding-top: clamp(1rem, 2.5vw, 2.5rem);
+  padding-top: 0;
   --card-gap: clamp(0.5rem, 1vw, 0.75rem);
   --card-width: min(calc((100% - var(--card-gap)) / 1.25), 490px);
   box-sizing: border-box;
@@ -335,7 +332,7 @@
 
 /* Title – one line, bold uppercase */
 .experience-card-title {
-  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  font-size: 1.25rem;
   font-weight: 700;
   font-style: normal;
   color: #000;
@@ -354,7 +351,7 @@
 
 /* Description – fully visible; line-clamp 6 accommodates all lengths */
 .experience-card-description {
-  font-size: clamp(0.82rem, 1.05vw, 0.95rem);
+  font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.5;
   color: #4a4a4a;
@@ -393,12 +390,12 @@
   border-color: #122b22;
 }
 
-/* Section title – full width with safe padding, more space above */
+/* Section title – full width with safe padding, less space above so it fits on one screen */
 .experience-section-title {
   width: 100%;
   max-width: 100vw;
   margin-left: 0;
-  padding: clamp(3rem, 7vw, 5.5rem) clamp(1rem, 4vw, 3rem);
+  padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1rem, 4vw, 3rem);
   box-sizing: border-box;
   font-size: clamp(1.75rem, 5vw, 4rem);
   font-weight: 800;
@@ -424,13 +421,13 @@
   }
 
   .experience-left {
-    padding-left: clamp(1rem, 3vw, 2.25rem);
-    padding-right: clamp(1rem, 3vw, 2.25rem);
+    padding-left: 0;
+    padding-right: clamp(1rem, 4vw, 2rem);
   }
 
   .experience-section-title {
     font-size: clamp(1.5rem, 6vw, 2.25rem);
-    padding: clamp(2.5rem, 6vw, 4rem) 1rem clamp(1.5rem, 3vw, 2rem);
+    padding: clamp(1.25rem, 3vw, 2rem) 1rem clamp(1rem, 2vw, 1.5rem);
   }
 
   .experience-card-cta {

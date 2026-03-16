@@ -14,7 +14,7 @@
 .stay-inspired-container {
   position: relative;
   width: 100%;
-  max-width: 80%;
+  max-width: 100%;
   min-height: min(74vh, 720px);
   min-height: min(74dvh, 720px);
   margin: 0 auto;

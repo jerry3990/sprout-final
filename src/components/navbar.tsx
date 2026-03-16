@@ -2,7 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './navbar.css';
 
-const Navbar = () => {
+interface NavbarProps {
+  /** When true, navbar is hidden (e.g. when a specific section like experience detail is in view) */
+  forceHidden?: boolean;
+  /** When true, navbar stays at top of hero only and scrolls away with it (not fixed across page) */
+  staticInHero?: boolean;
+}
+
+const Navbar = ({ forceHidden = false, staticInHero = false }: NavbarProps) => {
   const { pathname } = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -56,7 +63,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${!isVisible ? 'hidden' : ''}`}>
+      <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${!staticInHero && (!isVisible || forceHidden) ? 'hidden' : ''} ${staticInHero ? 'navbar--static-in-hero' : ''}`}>
         {/* Blur background element */}
         <div className="navbar-blur"></div>
 

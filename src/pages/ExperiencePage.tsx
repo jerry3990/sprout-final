@@ -8,16 +8,18 @@ import SiteFooter from '../components/SiteFooter'
 export default function ExperiencePage() {
   return (
     <>
-      <Navbar />
       <main>
-        <HeroSection
-          id="experience-hero"
-          titleLine1="EXPERIENCE THE FUTURE"
-          titleLine2="NOW...."
-          ctaText="Learn More"
-          ctaHref="/#experience"
-          videoSrc={HERO_VIDEOS[1]}
-        />
+        <div className="experience-page-hero-wrap">
+          <Navbar staticInHero />
+          <HeroSection
+            id="experience-hero"
+            titleLine1="EXPERIENCE THE FUTURE"
+            titleLine2="NOW...."
+            ctaText="Learn More"
+            ctaHref="/#experience"
+            videoSrc={HERO_VIDEOS[1]}
+          />
+        </div>
         <ExperienceDetailSection />
         <ExperienceCollageSection />
         <StayInspiredSection />

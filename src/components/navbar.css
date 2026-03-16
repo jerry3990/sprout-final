@@ -38,6 +38,14 @@
   transform: translateX(-50%) translateY(calc(-100% - 40px));
 }
 
+/* Experience page: navbar only at top of hero, scrolls away with hero (not fixed) */
+.navbar.navbar--static-in-hero {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /* Blur background - more transparent glass */
 .navbar-blur {
   position: absolute;
@@ -119,16 +127,16 @@
   color: var(--accent-hover);
 }
 
-/* Active state: pill #1c804f, white text, bold */
+/* Active state: pill #122b22, white text, bold; no hover change */
 .nav-link.active {
-  background: var(--nav-active-bg);
+  background: #122b22;
   color: #ffffff;
   font-weight: 700;
 }
 
 .nav-link.active:hover {
   color: #ffffff;
-  background: var(--nav-hover-olive);
+  background: #122b22;
 }
 
 /* Underline animation - hide when active (pill is the indicator) */

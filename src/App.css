@@ -15,6 +15,11 @@ main {
    HERO SECTION – Vantara-style full-viewport video
    ======================================== */
 
+/* Experience page: navbar sits at top of hero and scrolls away with it */
+.experience-page-hero-wrap {
+  position: relative;
+}
+
 .hero {
   position: relative;
   width: 100%;
@@ -570,6 +575,11 @@ main {
   background: rgba(0, 0, 0, 0.04);
 }
 
+/* No hover effect on the selected (active) item */
+.mission-item-active .mission-trigger:hover {
+  background: transparent;
+}
+
 /* Icons – small, dark gray, aligned left */
 .mission-trigger-icon {
   flex-shrink: 0;
@@ -991,7 +1001,7 @@ main {
   min-height: 100vh;
   min-height: 100dvh;
   padding: clamp(1.5rem, 5vw, 5rem) clamp(1rem, 4vw, 4rem);
-  background: #1e3d34;
+  background: #122b22;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1142,7 +1152,7 @@ main {
   width: 100%;
   max-width: 100vw;
   padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2.5rem) 0;
-  background: #1e3d34;
+  background: #122b22;
   overflow-x: hidden;
   box-sizing: border-box;
 }

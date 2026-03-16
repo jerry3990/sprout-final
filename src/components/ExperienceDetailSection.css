@@ -1,7 +1,7 @@
 /* Experience detail section – dark green background, tabs, two-column, media card + CTA overlay, pagination (match screenshot) */
 
 .experience-detail {
-  background: #19231f;
+  background: #122b22;
   color: #fff;
   padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
   min-height: 80vh;
@@ -77,6 +77,13 @@
   cursor: pointer;
   transition: background 0.25s ease, color 0.25s ease;
   white-space: nowrap;
+  outline: none;
+}
+
+.experience-detail-tab:focus,
+.experience-detail-tab:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 .experience-detail-tab:hover {
@@ -182,22 +189,9 @@
   }
 }
 
-/* NavControl – same style as homepage experience section, themed for dark background (white strokes/text) */
-.experience-detail-nav-wrap .nav-control {
-  gap: clamp(8px, 1.5vw, 16px);
-}
-
+/* NavControl – same as homepage; only progress/stroke color for visibility on dark bg */
 .experience-detail-nav-wrap .nav-progress {
-  font-size: clamp(0.65rem, 1.25vw, 0.85rem);
-  font-weight: 600;
-  color: #fff;
-}
-
-.experience-detail-nav-wrap .nav-btn {
-  width: clamp(60px, 13vw, 78px);
-  height: clamp(27px, 5.5vw, 33px);
-  min-width: 60px;
-  min-height: 27px;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .experience-detail-nav-wrap .nav-btn-pill-path-prev,
@@ -207,34 +201,21 @@
 
 .experience-detail-nav-wrap .nav-btn.prev.disabled .nav-btn-pill-path-prev,
 .experience-detail-nav-wrap .nav-btn.next.disabled .nav-btn-pill-path-next {
-  stroke: rgba(255, 255, 255, 0.25);
-}
-
-.experience-detail-nav-wrap .nav-btn.prev.active:hover,
-.experience-detail-nav-wrap .nav-btn.next.active:hover {
-  background: #2d5a4a;
+  stroke: rgba(255, 255, 255, 0.3);
 }
 
 .experience-detail-nav-wrap .nav-btn.prev.active:hover .nav-btn-pill-path-prev,
 .experience-detail-nav-wrap .nav-btn.next.active:hover .nav-btn-pill-path-next {
-  stroke: #2d5a4a;
+  stroke: #122b22;
 }
 
 .experience-detail-nav-wrap .arrow-icon {
-  width: clamp(12px, 2vw, 15px);
-  height: clamp(12px, 2vw, 15px);
-  max-width: 15px;
-  max-height: 15px;
   filter: brightness(0) invert(1);
 }
 
 .experience-detail-nav-wrap .nav-btn.prev.disabled .arrow-icon,
 .experience-detail-nav-wrap .nav-btn.next.disabled .arrow-icon {
-  opacity: 0.4;
-}
-
-.experience-detail-nav-wrap .nav-btn:focus-visible {
-  outline-color: rgba(255, 255, 255, 0.8);
+  opacity: 0.35;
 }
 
 .experience-detail-title {
@@ -401,8 +382,8 @@
   padding: clamp(0.5rem, 0.8vw, 0.65rem) clamp(1rem, 1.2vw, 1.2rem);
   font-size: clamp(0.8rem, 1vw, 0.9rem);
   font-weight: 600;
-  color: #fff;
-  background: #000;
+  color: #122b22;
+  background: #ffffff;
   border: none;
   border-radius: 8px;
   text-decoration: none;
@@ -416,7 +397,8 @@
 }
 
 .experience-detail-cta-btn:hover {
-  background: #1a1a1a;
+  background: #122b22;
+  color: #ffffff;
 }
 
 /* Nav below the photo – reference style with top padding */
