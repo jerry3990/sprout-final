@@ -24,6 +24,8 @@ export default function NavControl({
   const [isPrevPressed, setIsPrevPressed] = useState(false)
   const [isNextPressed, setIsNextPressed] = useState(false)
 
+  void timerProgress
+
   const isFirst = currentIndex <= 0
   const isLast = currentIndex >= total - 1
 
