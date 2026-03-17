@@ -1,83 +1,59 @@
-/* Premium floating photo-collage – masonry, deep green, soft shadows, parallax */
-
 .experience-collage {
   background: #122b22;
-  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem)
-    clamp(3rem, 8vw, 5rem);
+  padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 8vw, 5rem);
   box-sizing: border-box;
   min-height: 100vh;
-}
-
-.experience-collage-inner {
-  max-width: min(1400px, 100%);
-  margin: 0 auto;
-}
-
-/* Masonry via CSS columns – organic staggered flow */
-.experience-collage-masonry {
-  column-gap: clamp(24px, 3vw, 48px);
-  row-gap: 0;
-  column-fill: balance;
-}
-
-/* Mobile: 1–2 columns */
-.experience-collage-masonry {
-  column-count: 1;
-  padding: 0 0.5rem;
-}
-
-@media (min-width: 480px) {
-  .experience-collage-masonry {
-    column-count: 2;
-  }
-}
-
-/* Tablet: 2–3 columns */
-@media (min-width: 768px) {
-  .experience-collage-masonry {
-    column-count: 3;
-    column-gap: 36px;
-  }
-}
-
-/* Desktop: 4–5 columns */
-@media (min-width: 1024px) {
-  .experience-collage-masonry {
-    column-count: 4;
-    column-gap: 40px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .experience-collage-masonry {
-    column-count: 5;
-    column-gap: 48px;
-  }
-}
-
-/* Tile – keep together in columns, vertical spacing */
-.experience-collage-item {
-  break-inside: avoid;
-  margin-bottom: clamp(24px, 3vw, 48px);
-  border-radius: 28px;
   overflow: hidden;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-  /* Soft floating shadow: blur 40–60px, opacity 20–30% */
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.22), 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
-@media (min-width: 768px) {
-  .experience-collage-item {
-    border-radius: 32px;
-    box-shadow: 0 28px 56px rgba(0, 0, 0, 0.25), 0 14px 32px rgba(0, 0, 0, 0.2);
+.experience-collage-stage {
+  /* Container-query driven sizing so the collage scales as a unit */
+  container-type: inline-size;
+  --collage-gap: clamp(18px, 2.2vw, 34px);
+  --collage-radius: clamp(18px, 2.4vw, 32px);
+  max-width: min(1480px, 100%);
+  margin: 0 auto;
+  padding-top: clamp(14px, 3vw, 42px);
+}
+
+@container (min-width: 0px) {
+  .experience-collage-stage {
+    --collage-gap: clamp(14px, 2.1cqw, 34px);
+    --collage-radius: clamp(16px, 2.2cqw, 32px);
+    padding-top: clamp(10px, 2.8cqw, 44px);
   }
+}
+
+/* 3-cluster layout: left bleed / main collage / right bleed */
+.experience-collage-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.22fr) minmax(0, 1fr) minmax(0, 0.32fr);
+  gap: var(--collage-gap);
+  align-items: start;
+}
+
+@media (max-width: 740px) {
+  .experience-collage-layout {
+    grid-template-columns: minmax(0, 0.22fr) minmax(0, 1fr) minmax(0, 0.28fr);
+  }
+}
+
+/* Bleed columns are vertical stacks */
+.experience-collage-bleed {
+  display: flex;
+  flex-direction: column;
+  gap: var(--collage-gap);
 }
 
 /* Staggered fade-in on load */
-.experience-collage-item {
+.experience-collage-tile {
   animation: experience-collage-fade-in 0.75s cubic-bezier(0.22, 1, 0.36, 1)
     forwards;
   opacity: 0;
+  border-radius: var(--collage-radius);
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.22), 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
 @keyframes experience-collage-fade-in {
@@ -90,21 +66,21 @@
 }
 
 /* Parallax is applied via inline transform; animation only fades in. */
-.experience-collage-item {
+.experience-collage-tile {
   animation-fill-mode: forwards;
 }
 
 /* Inner wrapper for hover lift (so parallax + hover work together) */
-.experience-collage-item-inner {
+.experience-collage-tile-inner {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
   border-radius: inherit;
   overflow: hidden;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.experience-collage-item:hover .experience-collage-item-inner {
+.experience-collage-tile:hover .experience-collage-tile-inner {
   transform: translateY(-6px) scale(1.02);
 }
 
@@ -116,61 +92,127 @@
   vertical-align: middle;
 }
 
-/* Variable heights for organic masonry – no equal tiles */
-.experience-collage-item--short {
-  min-height: 180px;
-}
-.experience-collage-item--short .experience-collage-img {
+/* Default sizing guardrails so every tile has real height */
+.experience-collage-tile-inner {
   aspect-ratio: 4 / 3;
-  min-height: 180px;
-  object-fit: cover;
 }
 
-.experience-collage-item--square .experience-collage-img {
-  aspect-ratio: 1;
-  min-height: 220px;
-  object-fit: cover;
+/* Main collage: 3 nested columns (left / mid / right) with intentional offsets */
+.experience-collage-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.92fr) minmax(0, 1.1fr);
+  gap: var(--collage-gap);
+  align-items: start;
 }
 
-@media (min-width: 768px) {
-  .experience-collage-item--square .experience-collage-img {
-    min-height: 260px;
+.experience-collage-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--collage-gap);
+}
+
+.experience-collage-col--mid {
+  padding-top: clamp(14px, 2.6cqw, 44px);
+}
+
+.experience-collage-col--right {
+  padding-top: clamp(10px, 1.8cqw, 28px);
+}
+
+/* Edge crops: keep tiles partially outside the stage without absolute positioning */
+.experience-collage-tile--bleed-left {
+  margin-left: clamp(-28px, -4.4cqw, -74px);
+}
+
+.experience-collage-tile--bleed-right {
+  margin-right: clamp(-34px, -5.6cqw, -102px);
+}
+
+@media (max-width: 740px) {
+  .experience-collage-tile--bleed-left {
+    margin-left: clamp(-26px, -6vw, -52px);
+  }
+  .experience-collage-tile--bleed-right {
+    margin-right: clamp(-28px, -7vw, -64px);
   }
 }
 
-.experience-collage-item--tall .experience-collage-img {
-  aspect-ratio: 3 / 4;
-  min-height: 280px;
-  object-fit: cover;
+/* Slot proportions tuned to match reference screenshot */
+.experience-collage-tile--main-a .experience-collage-tile-inner {
+  aspect-ratio: 4 / 3;
+  min-height: clamp(150px, 18cqw, 300px);
 }
-
-@media (min-width: 768px) {
-  .experience-collage-item--tall .experience-collage-img {
-    min-height: 320px;
-  }
+.experience-collage-tile--main-b .experience-collage-tile-inner {
+  aspect-ratio: 5 / 3;
+  min-height: clamp(96px, 10.5cqw, 170px);
 }
-
-.experience-collage-item--wide .experience-collage-img {
+.experience-collage-tile--main-c .experience-collage-tile-inner {
+  aspect-ratio: 16 / 9;
+  min-height: clamp(112px, 12.5cqw, 210px);
+}
+.experience-collage-tile--main-d .experience-collage-tile-inner {
+  aspect-ratio: 4 / 5;
+  min-height: clamp(180px, 23cqw, 360px);
+}
+.experience-collage-tile--main-e .experience-collage-tile-inner {
+  aspect-ratio: 16 / 9;
+  min-height: clamp(112px, 12.5cqw, 210px);
+}
+.experience-collage-tile--main-f .experience-collage-tile-inner {
   aspect-ratio: 16 / 10;
-  min-height: 200px;
-  object-fit: cover;
+  min-height: clamp(112px, 12.5cqw, 210px);
 }
 
-@media (min-width: 768px) {
-  .experience-collage-item--wide .experience-collage-img {
-    min-height: 240px;
-  }
+/* Add the extra “air” under the mid-top tile like the reference */
+.experience-collage-tile--main-e {
+  margin-top: clamp(8px, 1.6cqw, 26px);
 }
 
-/* Slight vertical offset for first items in columns (organic feel) – optional nudge */
-@media (min-width: 1024px) {
-  .experience-collage-item:nth-child(3n + 1) {
-    margin-top: 0.5rem;
+/* Bleed slot sizes (kept intentionally “cropped”) */
+.experience-collage-tile--bleed-left-top .experience-collage-tile-inner {
+  aspect-ratio: 3 / 4;
+  min-height: clamp(140px, 18cqw, 300px);
+}
+.experience-collage-tile--bleed-left-mid .experience-collage-tile-inner {
+  aspect-ratio: 1 / 1;
+  min-height: clamp(96px, 12cqw, 200px);
+}
+.experience-collage-tile--bleed-left-bot .experience-collage-tile-inner {
+  aspect-ratio: 1 / 1;
+  min-height: clamp(90px, 11cqw, 190px);
+}
+.experience-collage-tile--bleed-left-peek {
+  align-self: flex-start;
+  width: clamp(56%, 64%, 74%);
+  margin-left: clamp(-16px, -3.2cqw, -58px);
+  margin-top: 0;
+}
+.experience-collage-tile--bleed-left-peek .experience-collage-tile-inner {
+  aspect-ratio: 5 / 3;
+  min-height: clamp(60px, 8cqw, 130px);
+}
+.experience-collage-tile--bleed-right-top .experience-collage-tile-inner {
+  aspect-ratio: 3 / 5;
+  min-height: clamp(200px, 28cqw, 460px);
+}
+.experience-collage-tile--bleed-right-mid .experience-collage-tile-inner {
+  aspect-ratio: 4 / 3;
+  min-height: clamp(104px, 12.5cqw, 210px);
+}
+.experience-collage-tile--bleed-right-bot .experience-collage-tile-inner {
+  aspect-ratio: 3 / 4;
+  min-height: clamp(120px, 15cqw, 240px);
+}
+
+/* Keep composition “collage-like” on small screens (no stacking into a plain list) */
+@media (max-width: 560px) {
+  .experience-collage-main {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
   }
-  .experience-collage-item:nth-child(3n + 2) {
-    margin-top: 1.5rem;
+  .experience-collage-col--right {
+    display: none;
   }
-  .experience-collage-item:nth-child(3n) {
-    margin-top: 0.25rem;
+  .experience-collage-layout {
+    grid-template-columns: minmax(0, 0.22fr) minmax(0, 1fr) minmax(0, 0.28fr);
   }
 }
