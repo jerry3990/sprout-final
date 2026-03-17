@@ -3,20 +3,23 @@ import HeroSection, { HERO_VIDEOS } from '../components/HeroSection'
 import VideoOverlaySection from '../components/VideoOverlaySection'
 import StayInspiredSection from '../components/StayInspiredSection'
 import SiteFooter from '../components/SiteFooter'
+import FullPageScroll from '../components/FullPageScroll'
 
 export default function HowItWorksPage() {
   return (
     <>
       <Navbar />
-      <main>
-        <HeroSection
-          id="how-it-works-hero"
-          titleLine1="HOW IT WORKS"
-          titleLine2="WITH THE SPROUT"
-          ctaText="Start the Conversation"
-          ctaHref="/contact"
-          videoSrc={HERO_VIDEOS[2]}
-        />
+      <FullPageScroll>
+        <main>
+          <HeroSection
+            id="how-it-works-hero"
+            titleLine1="HOW IT WORKS"
+            titleLine2="WITH THE SPROUT"
+            ctaText="Start the Conversation"
+            ctaHref="/contact"
+            videoSrc={HERO_VIDEOS[2]}
+          />
+        </main>
         <VideoOverlaySection videoSrc={HERO_VIDEOS[1]} side="right">
           {/* Content for right-side card */}
         </VideoOverlaySection>
@@ -24,8 +27,8 @@ export default function HowItWorksPage() {
           {/* Content for left-side card */}
         </VideoOverlaySection>
         <StayInspiredSection />
-        <SiteFooter />
-      </main>
+      </FullPageScroll>
+      <SiteFooter />
     </>
   )
 }

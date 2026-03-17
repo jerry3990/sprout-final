@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useFullPageScroll } from './FullPageScrollContext';
 import './navbar.css';
 
 interface NavbarProps {
@@ -15,7 +16,7 @@ const Navbar = ({ forceHidden = false, staticInHero = false }: NavbarProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
-  const lastScrollY = useRef(0);
+  const { index, direction } = useFullPageScroll();
 
   const activeLink =
     pathname === '/experience'
@@ -34,22 +35,26 @@ const Navbar = ({ forceHidden = false, staticInHero = false }: NavbarProps) => {
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 50);
-      if (scrollY <= 50) {
-        setIsVisible(true);
-      } else if (scrollY > lastScrollY.current) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      lastScrollY.current = scrollY;
-    };
+    // Treat any slide beyond the first as "scrolled"
+    setIsScrolled(index > 0);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    let nextVisible = isVisible;
+
+    if (index === 0) {
+      nextVisible = true;
+    } else if (direction === 'down') {
+      nextVisible = false;
+    } else if (direction === 'up') {
+      nextVisible = true;
+    }
+
+    // On home and experience pages, keep navbar hidden on the 2nd slide (index 1)
+    if ((pathname === '/' || pathname === '/experience') && index === 1) {
+      nextVisible = false;
+    }
+
+    setIsVisible(nextVisible);
+  }, [index, direction, pathname, isVisible]);
 
   const navItems = [
     { id: 'home', label: 'Home', side: 'left' },

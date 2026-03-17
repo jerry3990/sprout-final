@@ -7,6 +7,8 @@ import ExperiencePage from './pages/ExperiencePage'
 import HowItWorksPage from './pages/HowItWorksPage'
 import ContactPage from './pages/ContactPage'
 import SiteFooter from './components/SiteFooter'
+import FullPageScroll from './components/FullPageScroll'
+import { FullPageScrollProvider } from './components/FullPageScrollContext'
 import './App.css'
 
 /* Mission items – image, text, and optional audio per mission (Vantara-style) */
@@ -82,7 +84,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
+      <FullPageScrollProvider>
+        <Routes>
         <Route
           path="/experience"
           element={<ExperiencePage />}
@@ -100,76 +103,77 @@ function App() {
           element={
             <>
               <Navbar />
-              <main>
+              <FullPageScroll>
                 <HeroSection id="home" ctaHref="#experience" />
                 <ExperienceCategories />
 
-                {/* Testimonial – white block, green stars, centered quote */}
-                <section className="testimonial-section">
-                  <div className="testimonial-inner">
-                    <div className="testimonial-stars">
-                      {[1, 2, 3, 4].map((i) => (
-                        <svg key={i} className="testimonial-star testimonial-star-filled" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                {/* Feedback (testimonial) + Our Process combined into one full-page section */}
+                <section id="process" className="home-feedback-process-slide">
+                  <div className="testimonial-section">
+                    <div className="testimonial-inner">
+                      <div className="testimonial-stars">
+                        {[1, 2, 3, 4].map((i) => (
+                          <svg key={i} className="testimonial-star testimonial-star-filled" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                          </svg>
+                        ))}
+                        <svg className="testimonial-star testimonial-star-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
                           <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                         </svg>
-                      ))}
-                      <svg className="testimonial-star testimonial-star-outline" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                      </svg>
+                      </div>
+                      <blockquote className="testimonial-quote">
+                        "The Sprout transformed our campus event into something truly unforgettable. The team's attention to detail and genuine care for our students made all the difference."
+                      </blockquote>
+                      <p className="testimonial-author">Student Experience Director, Conestoga College</p>
                     </div>
-                    <blockquote className="testimonial-quote">
-                      "The Sprout transformed our campus event into something truly unforgettable. The team's attention to detail and genuine care for our students made all the difference."
-                    </blockquote>
-                    <p className="testimonial-author">Student Experience Director, Conestoga College</p>
                   </div>
-                </section>
 
-                {/* Our Process – same bg as Experience, 3 steps with icons */}
-                <section id="process" className="our-process-section">
-                  <div className="our-process-container">
-                    <h2 className="our-process-heading">OUR PROCESS</h2>
-                    <p className="our-process-subtitle">Simple, clear steps from idea to unforgettable experience.</p>
-                    <div className="our-process-steps">
-                      <div className="our-process-step">
-                        <div className="our-process-icon our-process-icon-search">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                            <circle cx="11" cy="11" r="8" />
-                            <path d="m21 21-4.35-4.35" />
-                          </svg>
+                  <section className="our-process-section">
+                    <div className="our-process-container">
+                      <h2 className="our-process-heading">OUR PROCESS</h2>
+                      <p className="our-process-subtitle">Simple, clear steps from idea to unforgettable experience.</p>
+                      <div className="our-process-steps">
+                        <div className="our-process-step">
+                          <div className="our-process-icon our-process-icon-search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                              <circle cx="11" cy="11" r="8" />
+                              <path d="m21 21-4.35-4.35" />
+                            </svg>
+                          </div>
+                          <h3 className="our-process-step-title">Tell Us Your Goal</h3>
+                          <p className="our-process-step-text">We listen, understand, and dream with you</p>
                         </div>
-                        <h3 className="our-process-step-title">Tell Us Your Goal</h3>
-                        <p className="our-process-step-text">We listen, understand, and dream with you</p>
-                      </div>
-                      <div className="our-process-step">
-                        <div className="our-process-icon our-process-icon-paint">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                            <circle cx="12" cy="12" r="7" />
-                            <circle cx="9.5" cy="9" r="1.25" />
-                            <circle cx="14.5" cy="10" r="1.25" />
-                            <circle cx="15" cy="14" r="1.25" />
-                            <circle cx="10" cy="15" r="1.25" />
-                            <path d="M12 5v2" />
-                          </svg>
+                        <div className="our-process-step">
+                          <div className="our-process-icon our-process-icon-paint">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                              <circle cx="12" cy="12" r="7" />
+                              <circle cx="9.5" cy="9" r="1.25" />
+                              <circle cx="14.5" cy="10" r="1.25" />
+                              <circle cx="15" cy="14" r="1.25" />
+                              <circle cx="10" cy="15" r="1.25" />
+                              <path d="M12 5v2" />
+                            </svg>
+                          </div>
+                          <h3 className="our-process-step-title">We Design Your Custom Experience</h3>
+                          <p className="our-process-step-text">Your people, your vibe, your story — brought to life</p>
                         </div>
-                        <h3 className="our-process-step-title">We Design Your Custom Experience</h3>
-                        <p className="our-process-step-text">Your people, your vibe, your story — brought to life</p>
-                      </div>
-                      <div className="our-process-step">
-                        <div className="our-process-icon our-process-icon-plane">
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                            <path d="m22 2-7 20-4-9-9-4L22 2z" />
-                            <path d="M22 2 11 13" />
-                          </svg>
+                        <div className="our-process-step">
+                          <div className="our-process-icon our-process-icon-plane">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                              <path d="m22 2-7 20-4-9-9-4L22 2z" />
+                              <path d="M22 2 11 13" />
+                            </svg>
+                          </div>
+                          <h3 className="our-process-step-title">You Enjoy the Magic</h3>
+                          <p className="our-process-step-text">We run everything, You enjoy the moment</p>
                         </div>
-                        <h3 className="our-process-step-title">You Enjoy the Magic</h3>
-                        <p className="our-process-step-text">We run everything, You enjoy the moment</p>
                       </div>
                     </div>
-                  </div>
+                  </section>
                 </section>
 
                 {/* Mission – full-viewport big screen, photo + text + per-mission audio */}
-                <section id="mission" className="mission-section">
+                <section id="mission" className="mission-section fullpage-section">
                   <audio ref={missionAudioRef} loop playsInline aria-hidden />
                   <div className="mission-container">
                     <div className="mission-visual">
@@ -256,7 +260,7 @@ function App() {
                 </section>
 
                 {/* OUR STORY – white background, left text, right media card */}
-                <section id="story" className="our-story-section">
+                <section id="story" className="our-story-section fullpage-section">
                   <div className="our-story-container">
                     <div className="our-story-content">
                       <h2 className="our-story-heading">OUR STORY</h2>
@@ -296,7 +300,7 @@ function App() {
                 </section>
 
                 {/* GET IN TOUCH – dark green background, video area + overlay CTA */}
-                <section id="contact" className="get-in-touch-section">
+                <section id="contact" className="get-in-touch-section fullpage-section">
                   <div className="get-in-touch-wrapper">
                     <h2 className="get-in-touch-heading">GET IN TOUCH</h2>
                     <div className="get-in-touch-media">
@@ -326,15 +330,15 @@ function App() {
                     </div>
                   </div>
                 </section>
+              </FullPageScroll>
 
-                {/* Footer – dark green, logo, contact, Services, Company, copyright bar */}
-                <SiteFooter />
-
-              </main>
+              {/* Footer – dark green, logo, contact, Services, Company, copyright bar */}
+              <SiteFooter />
             </>
           }
         />
       </Routes>
+      </FullPageScrollProvider>
     </BrowserRouter>
   )
 }
